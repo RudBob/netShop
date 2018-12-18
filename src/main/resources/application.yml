@@ -1,0 +1,14 @@
+#log 配置:显示sql语句，便于debug
+logging:
+  level: trace
+
+#SpringBoot + mybatis
+mybatis:
+  mapper-locations: classpath*:dao/*Mapper.xml
+#DB config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: 123456
