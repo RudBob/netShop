@@ -1,7 +1,6 @@
 package cn.edu.zzuli.controller.user.signup;
 
 import cn.edu.zzuli.service.user.EmailSignUpService;
-import cn.edu.zzuli.service.user.SignService;
 import cn.edu.zzuli.util.Msg;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @ClassName EmailSignUpController
  * @Description 用户使用邮箱进行注册
- * @Author 任耀
+ * @Author 过道
  * @Date 2018/12/23 15:56
  * @Version 1.0
  */

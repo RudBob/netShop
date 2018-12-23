@@ -9,7 +9,7 @@ public class User {
     /**
      * 用户编号
      */
-    private int userId;
+    private Integer userId;
     /**
      * 用户名称
      */
@@ -55,9 +55,6 @@ public class User {
         user.setState(UserStateEnum.NO_CONFIRM);
         return user;
     }
-//    public User userFactory(){
-//
-//    }
 
     @Override
     public String toString() {
@@ -116,11 +113,11 @@ public class User {
         this.email = email;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

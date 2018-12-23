@@ -1113,8 +1113,188 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="280" parent="2" name="user"/>
-    <column id="281" parent="280" name="user_id">
+    <table id="280" parent="2" name="comment_goods">
+      <Comment>对一个商品的评价</Comment>
+    </table>
+    <table id="281" parent="2" name="goods">
+      <Comment>商品</Comment>
+    </table>
+    <table id="282" parent="2" name="goods_order">
+      <Comment>订单中的商品</Comment>
+    </table>
+    <table id="283" parent="2" name="shop">
+      <Comment>网上商店</Comment>
+    </table>
+    <table id="284" parent="2" name="shopping_cart"/>
+    <table id="285" parent="2" name="user"/>
+    <table id="286" parent="2" name="user_orders"/>
+    <column id="287" parent="280" name="cd_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="280" name="context">
+      <Position>2</Position>
+      <Comment>评论</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <DefaultExpression>&apos;此用户没有填写评论&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="280" name="assess_level">
+      <Position>3</Position>
+      <Comment>好评等级</Comment>
+      <DataType>enum(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;)|0e</DataType>
+      <DefaultExpression>&apos;5&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="290" parent="280" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cd_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="291" parent="281" name="goods_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="292" parent="281" name="goods_name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="293" parent="281" name="sh_id">
+      <Position>3</Position>
+      <Comment>商品所属商店</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="294" parent="281" name="sales">
+      <Position>4</Position>
+      <Comment>商品销量，每天定时刷新</Comment>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="295" parent="281" name="price_refer">
+      <Position>5</Position>
+      <Comment>市场参考价格</Comment>
+      <DataType>double|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>99999</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="296" parent="281" name="price">
+      <Position>6</Position>
+      <Comment>商品价格</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>9</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="297" parent="281" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>goods_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="298" parent="282" name="goods_order_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="299" parent="282" name="goods_id">
+      <Position>2</Position>
+      <Comment>订单中的商品</Comment>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="300" parent="282" name="goods_price">
+      <Position>3</Position>
+      <Comment>商品的价格</Comment>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="301" parent="282" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>goods_order_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="302" parent="283" name="sh_id">
+      <Position>1</Position>
+      <Comment>主键，自增
+</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="303" parent="283" name="sh_name">
+      <Position>2</Position>
+      <Comment>店名</Comment>
+      <DataType>varchar(30)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="304" parent="283" name="fans_num">
+      <Position>3</Position>
+      <Comment>粉丝数量
+</Comment>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="305" parent="283" name="shopper">
+      <Position>4</Position>
+      <Comment>店主</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="306" parent="283" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>sh_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="307" parent="284" name="cart_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="308" parent="284" name="goods_id">
+      <Position>2</Position>
+      <Comment>商品的id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="309" parent="284" name="user_id">
+      <Position>3</Position>
+      <Comment>用户的id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="310" parent="284" name="num">
+      <Position>4</Position>
+      <Comment>这个商品的数量</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>1</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="311" parent="284" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cart_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="312" parent="285" name="user_id">
       <Position>1</Position>
       <Comment>用户编号</Comment>
       <DataType>int(11)|0s</DataType>
@@ -1122,26 +1302,26 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="280" name="user_name">
+    <column id="313" parent="285" name="user_name">
       <Position>2</Position>
       <Comment>用户名称</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="280" name="pwd">
+    <column id="314" parent="285" name="pwd">
       <Position>3</Position>
       <Comment>用户密码</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="280" name="role">
+    <column id="315" parent="285" name="role">
       <Position>4</Position>
       <Comment>用户角色</Comment>
       <DataType>enum(&apos;CONSUMER&apos;, &apos;SHOPPER&apos;)|0e</DataType>
       <DefaultExpression>&apos;CONSUMER&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="280" name="state">
+    <column id="316" parent="285" name="state">
       <Position>5</Position>
       <Comment>用户的状态码
 </Comment>
@@ -1149,39 +1329,77 @@
       <DefaultExpression>&apos;NO_CONFIRM&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="280" name="email">
+    <column id="317" parent="285" name="email">
       <Position>6</Position>
       <Comment>用户邮箱
 </Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="280" name="tel">
+    <column id="318" parent="285" name="tel">
       <Position>7</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="280" name="head_portrait">
+    <column id="319" parent="285" name="head_portrait">
       <Position>8</Position>
       <Comment>用户头像图片存储位置
 </Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="289" parent="280" name="user_user_name_uindex">
+    <index id="320" parent="285" name="user_user_name_uindex">
       <ColNames>user_name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="290" parent="280" name="PRIMARY">
+    <key id="321" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="291" parent="280" name="user_user_name_uindex">
+    <key id="322" parent="285" name="user_user_name_uindex">
       <ColNames>user_name</ColNames>
       <UnderlyingIndexName>user_user_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="323" parent="286" name="uo_id">
+      <Position>1</Position>
+      <Comment>主键</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="324" parent="286" name="user_id">
+      <Position>2</Position>
+      <Comment>订单所属顾客的id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="325" parent="286" name="order_datetime">
+      <Position>3</Position>
+      <Comment>下单时间</Comment>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="326" parent="286" name="order_addr">
+      <Position>4</Position>
+      <Comment>收获地址</Comment>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="327" parent="286" name="order_username">
+      <Position>5</Position>
+      <Comment>收货人名称</Comment>
+      <DataType>varchar(10)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="328" parent="286" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>uo_id</ColNames>
+      <Primary>1</Primary>
     </key>
   </database-model>
 </dataSource>
