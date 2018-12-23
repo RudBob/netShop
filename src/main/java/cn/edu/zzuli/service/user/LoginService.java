@@ -1,6 +1,7 @@
 package cn.edu.zzuli.service.user;
 
 import cn.edu.zzuli.bean.User;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
  * 登录登出的接口
  * waring: 本类中返回的user将不含有pwd字段值
  */
+
 public interface LoginService {
     /**
      * 用户登录,

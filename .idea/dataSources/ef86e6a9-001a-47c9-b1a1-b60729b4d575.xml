@@ -1134,17 +1134,52 @@
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="284" parent="280" name="user_user_name_uindex">
+    <column id="284" parent="280" name="role">
+      <Position>4</Position>
+      <Comment>用户角色</Comment>
+      <DataType>enum(&apos;CONSUMER&apos;, &apos;SHOPPER&apos;)|0e</DataType>
+      <DefaultExpression>&apos;CONSUMER&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="285" parent="280" name="state">
+      <Position>5</Position>
+      <Comment>用户的状态码
+</Comment>
+      <DataType>enum(&apos;NO_CONFIRM&apos;, &apos;NORMAL&apos;)|0e</DataType>
+      <DefaultExpression>&apos;NO_CONFIRM&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="286" parent="280" name="email">
+      <Position>6</Position>
+      <Comment>用户邮箱
+</Comment>
+      <DataType>varchar(40)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="280" name="tel">
+      <Position>7</Position>
+      <Comment>手机号</Comment>
+      <DataType>varchar(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="280" name="head_portrait">
+      <Position>8</Position>
+      <Comment>用户头像图片存储位置
+</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="289" parent="280" name="user_user_name_uindex">
       <ColNames>user_name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="285" parent="280" name="PRIMARY">
+    <key id="290" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="286" parent="280" name="user_user_name_uindex">
+    <key id="291" parent="280" name="user_user_name_uindex">
       <ColNames>user_name</ColNames>
       <UnderlyingIndexName>user_user_name_uindex</UnderlyingIndexName>
     </key>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 /**
  * 用户操作的相关Service
  */
-@Service
 public interface UserService {
 
 }
