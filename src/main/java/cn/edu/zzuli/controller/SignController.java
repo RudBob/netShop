@@ -20,42 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sign")
 public class SignController {
-    @Autowired
-    SignService signService;
-
-    /**
-     * 邮件注册
-     *
-     * @return
-     */
-    @RequestMapping(value = "registerByEmail", method = RequestMethod.POST)
-    public Msg registerByEmail(@RequestParam(value = "email", required = true) String email,
-                               @RequestParam(value = "pwd", required = true) String pwd,
-                               @RequestParam(value = "userName", required = true) String userName
-                               ) {
-        boolean res = signService.registerByEmail(email, pwd,userName);
-        if (res) {
-            return Msg.success();
-        }
-        return Msg.fail();
-    }
-
-
-    /**
-     * 手机号注册。
-     *
-     * @return
-     */
-    @RequestMapping(value = "registerByTel", method = RequestMethod.POST)
-    public Msg registerByTel(@RequestParam(value = "tel", required = true) String tel,
-                             @RequestParam(value = "code", required = true) String code,
-                             @RequestParam(value = "pwd", required = true) String pwd) {
-        boolean res = signService.registerByTel(tel, code, pwd);
-        if (res) {
-            return Msg.success();
-        }
-        return Msg.fail();
-    }
 
     /**
      * 注销用户账号，消灭这个用户的所有隐私信息

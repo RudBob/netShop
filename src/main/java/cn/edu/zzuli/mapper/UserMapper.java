@@ -9,4 +9,8 @@ public interface UserMapper {
     User login(@Param("userName") String userName,@Param("pwd")String password);
 
     void addUser(@Param("user") User user);
+
+    User getUserByEmail(@Param("email") String email);
+
+    void updateUser(@Param("user") User user);
 }

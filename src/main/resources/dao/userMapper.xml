@@ -50,6 +50,29 @@
                          role)
         VALUES (#{user.userName}, #{user.pwd}, #{user.tel}, #{user.email}, #{user.state}, #{user.role})
     </insert>
+    <update id="updateUser">
+        UPDATE user
+        <set>
+            <if test="user.userName != null">
+                user_name = #{user.userName},
+            </if>
+            <if test="user.pwd != null">
+                pwd = #{user.pwd},
+            </if>
+            <if test="user.tel != null">
+                tel = #{user.tel},
+            </if>
+            <if test="user.email != null">
+                email = #{user.email},
+            </if>
+            <if test="user.state != null">
+                state = #{user.state},
+            </if>
+            <if test="user.role != null">
+                role = #{user.role}
+            </if>
+        </set>
+    </update>
     <select id="login" resultMap="simpleMap">
         select
         <include refid="simpleParams"/>
@@ -57,6 +80,9 @@
         where user_name = #{userName}
         AND pwd = #{pwd}
     </select>
-
-
+    <select id="getUserByEmail" resultType="cn.edu.zzuli.bean.User">
+        select
+        <include refid="noPwdParam"/>
+        from user where email =#{email}
+    </select>
 </mapper>
