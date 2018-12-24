@@ -56,6 +56,10 @@ public class User {
         return user;
     }
 
+    public User(Integer userId) {
+        this.userId = userId;
+    }
+
     public UserRoleEnum getRole() {
         return role;
     }

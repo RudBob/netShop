@@ -13,4 +13,6 @@ public interface UserMapper {
     User getUserByEmail(@Param("email") String email);
 
     void updateUser(@Param("user") User user);
+
+    User selectUserById(@Param("userId")int userId);
 }

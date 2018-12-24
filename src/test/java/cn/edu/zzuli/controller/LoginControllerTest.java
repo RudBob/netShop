@@ -25,7 +25,7 @@ public class LoginControllerTest {
     HttpServletRequest request;
 
     @Test
-    public void login() {
+    public void testLogin() {
         Msg msg = (Msg) loginController.login("001001", "123456");
         System.out.println(msg);
         HttpSession session = request.getSession();

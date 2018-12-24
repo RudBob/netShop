@@ -1,82 +1,106 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zzuli.mapper.ShopMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.Shop" >
-    <id column="sh_id" property="shId" jdbcType="INTEGER" />
-    <result column="sh_name" property="shName" jdbcType="VARCHAR" />
-    <result column="fans_num" property="fansNum" jdbcType="INTEGER" />
-    <result column="shopper" property="shopper" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sh_id, sh_name, fans_num, shopper
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from shop
-    where sh_id = #{shId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from shop
-    where sh_id = #{shId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.edu.zzuli.bean.Shop" >
-    insert into shop (sh_id, sh_name, fans_num, 
-      shopper)
-    values (#{shId,jdbcType=INTEGER}, #{shName,jdbcType=VARCHAR}, #{fansNum,jdbcType=INTEGER}, 
-      #{shopper,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Shop" >
-    insert into shop
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="shId != null" >
+<mapper namespace="cn.edu.zzuli.mapper.ShopMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.Shop">
+        <id column="sh_id" property="shId" jdbcType="INTEGER"/>
+        <result column="sh_name" property="shName" jdbcType="VARCHAR"/>
+        <result column="fans_num" property="fansNum" jdbcType="INTEGER"/>
+        <association property="shopper" javaType="cn.edu.zzuli.bean.User">
+            <id property="userId" column="shopper_id" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+    <resultMap id="cascadeResultMap" type="cn.edu.zzuli.bean.Shop">
+        <id column="sh_id" property="shId" jdbcType="INTEGER"/>
+        <result column="sh_name" property="shName" jdbcType="VARCHAR"/>
+        <result column="fans_num" property="fansNum" jdbcType="INTEGER"/>
+        <association property="shopper" select="cn.edu.zzuli.mapper.UserMapper.selectUserById"
+                     column="shopper_id"/>
+    </resultMap>
+    <sql id="Base_Column_List">
         sh_id,
-      </if>
-      <if test="shName != null" >
         sh_name,
-      </if>
-      <if test="fansNum != null" >
         fans_num,
-      </if>
-      <if test="shopper != null" >
-        shopper,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="shId != null" >
-        #{shId,jdbcType=INTEGER},
-      </if>
-      <if test="shName != null" >
-        #{shName,jdbcType=VARCHAR},
-      </if>
-      <if test="fansNum != null" >
-        #{fansNum,jdbcType=INTEGER},
-      </if>
-      <if test="shopper != null" >
-        #{shopper,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.Shop" >
-    update shop
-    <set >
-      <if test="shName != null" >
-        sh_name = #{shName,jdbcType=VARCHAR},
-      </if>
-      <if test="fansNum != null" >
-        fans_num = #{fansNum,jdbcType=INTEGER},
-      </if>
-      <if test="shopper != null" >
-        shopper = #{shopper,jdbcType=INTEGER},
-      </if>
-    </set>
-    where sh_id = #{shId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.Shop" >
-    update shop
-    set sh_name = #{shName,jdbcType=VARCHAR},
-      fans_num = #{fansNum,jdbcType=INTEGER},
-      shopper = #{shopper,jdbcType=INTEGER}
-    where sh_id = #{shId,jdbcType=INTEGER}
-  </update>
+        shopper_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from shop
+        where sh_id = #{shId,jdbcType=INTEGER}
+    </select>
+    <select id="selectShopByName" resultType="cn.edu.zzuli.bean.Shop">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from shop WHERE sh_name =#{shopName}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from shop
+        where sh_id = #{shId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.Shop">
+        insert into shop (sh_id, sh_name, fans_num,
+                          shopper_id)
+        values (#{shId,jdbcType=INTEGER}, #{shName,jdbcType=VARCHAR}, #{fansNum,jdbcType=INTEGER},
+                #{shopper.userId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Shop">
+        insert into shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shId != null">
+                sh_id,
+            </if>
+            <if test="shName != null">
+                sh_name,
+            </if>
+            <if test="fansNum != null">
+                fans_num,
+            </if>
+            <if test="shopper != null">
+                <if test="shopper.userId != null">
+                    shopper_id,
+                </if>
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shId != null">
+                #{shId,jdbcType=INTEGER},
+            </if>
+            <if test="shName != null">
+                #{shName,jdbcType=VARCHAR},
+            </if>
+            <if test="fansNum != null">
+                #{fansNum,jdbcType=INTEGER},
+            </if>
+            <if test="shopper != null">
+                <if test="shopper.userId != null">
+                    #{shopper.userId,jdbcType=INTEGER},
+                </if>
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.Shop">
+        update shop
+        <set>
+            <if test="shName != null">
+                sh_name = #{shName,jdbcType=VARCHAR},
+            </if>
+            <if test="fansNum != null">
+                fans_num = #{fansNum,jdbcType=INTEGER},
+            </if>
+            <if test="shopper != null">
+                <if test="shopper.userId != null">
+                    shopper_id = #{shopper.userId,jdbcType=INTEGER},
+                </if>
+            </if>
+        </set>
+        where sh_id = #{shId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.Shop">
+        update shop
+        set sh_name    = #{shName,jdbcType=VARCHAR},
+            fans_num   = #{fansNum,jdbcType=INTEGER},
+            shopper_id = #{shopper.userId,jdbcType=INTEGER}
+        where sh_id = #{shId,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -7,8 +7,15 @@ public class Shop {
 
     private Integer fansNum;
 
-    private Integer shopper;
+    private User shopper;
 
+    public static Shop shopFactory(String shopName,User shopper){
+        Shop shop = new Shop();
+        shop.setShName(shopName);
+        shop.setShopper(shopper);
+        shop.setFansNum(0);
+        return shop;
+    }
     public Integer getShId() {
         return shId;
     }
@@ -33,11 +40,11 @@ public class Shop {
         this.fansNum = fansNum;
     }
 
-    public Integer getShopper() {
+    public User getShopper() {
         return shopper;
     }
 
-    public void setShopper(Integer shopper) {
+    public void setShopper(User shopper) {
         this.shopper = shopper;
     }
 }

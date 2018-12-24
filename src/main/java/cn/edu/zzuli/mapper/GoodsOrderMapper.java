@@ -1,7 +1,9 @@
 package cn.edu.zzuli.mapper;
 
 import cn.edu.zzuli.bean.GoodsOrder;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface GoodsOrderMapper {
     int deleteByPrimaryKey(Integer goodsOrderId);
 

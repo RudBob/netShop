@@ -1248,7 +1248,7 @@
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="283" name="shopper">
+    <column id="305" parent="283" name="shopper_id">
       <Position>4</Position>
       <Comment>店主</Comment>
       <DataType>int(11)|0s</DataType>
@@ -1311,7 +1311,7 @@
     <column id="314" parent="285" name="pwd">
       <Position>3</Position>
       <Comment>用户密码</Comment>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="315" parent="285" name="role">

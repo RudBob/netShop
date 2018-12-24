@@ -1,7 +1,9 @@
 package cn.edu.zzuli.mapper;
 
 import cn.edu.zzuli.bean.ShoppingCart;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ShoppingCartMapper {
     int deleteByPrimaryKey(Integer cartId);
 

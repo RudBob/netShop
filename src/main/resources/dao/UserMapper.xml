@@ -72,6 +72,7 @@
                 role = #{user.role}
             </if>
         </set>
+        WHERE user_id = #{user.userId}
     </update>
     <select id="login" resultMap="simpleMap">
         select
@@ -80,7 +81,7 @@
         where user_name = #{userName}
         AND pwd = #{pwd}
     </select>
-    <select id="getUserByEmail" resultType="cn.edu.zzuli.bean.User">
+    <select id="getUserByEmail" resultMap="simpleMap">
         select
         <include refid="noPwdParam"/>
         from user where email =#{email}

@@ -4,6 +4,7 @@ import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.mapper.UserMapper;
 import cn.edu.zzuli.service.user.LoginService;
 import cn.edu.zzuli.util.MD5Util;
+import cn.edu.zzuli.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,6 @@ import javax.servlet.http.HttpSession;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     UserMapper userMapper;
-    @Autowired
-    HttpServletRequest request;
 
     /**
      * 用户登录操作。将用户存入session
@@ -29,7 +28,6 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public User login(String userName, String pwd) {
-        HttpSession session = request.getSession();
         //MD5 加密后再与数据库中的密码进行比对
         pwd = MD5Util.md5Pwd(pwd);
         // 通过userName和pwd得到数据库中对应的记录,
@@ -37,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
         if (user != null) {
             user.setPwd(null);
             // 得到user对象， 存入Session中
-            session.setAttribute("user", user);
+            SessionUtil.putUserIntoSession(user);
         }
         return user;
     }
@@ -50,9 +48,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public User logout() {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        session.removeAttribute("user");
-        return user;
+
+        return SessionUtil.removeUserFromSession();
     }
 }
