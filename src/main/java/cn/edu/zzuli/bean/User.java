@@ -56,15 +56,6 @@ public class User {
         return user;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", pwd='" + pwd + '\'' +
-                '}';
-    }
-
     public UserRoleEnum getRole() {
         return role;
     }
@@ -135,6 +126,20 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", state=" + state +
+                ", role=" + role +
+                ", headPortrait='" + headPortrait + '\'' +
+                '}';
     }
 
     @Override

@@ -41,9 +41,8 @@ public class LoginController {
     })
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public Msg login(@RequestParam(value = "username",required = true) String username,
-                     @RequestParam(value = "pwd",required = true) String pwd,
-                     HttpSession session) {
-        User user = loginService.login(username, pwd,session);
+                     @RequestParam(value = "pwd",required = true) String pwd) {
+        User user = loginService.login(username, pwd);
         if (user == null) {
             // 用户不存在
             return Msg.fail();

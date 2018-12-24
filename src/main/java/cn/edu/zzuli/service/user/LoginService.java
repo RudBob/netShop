@@ -15,7 +15,7 @@ public interface LoginService {
      * 用户登录,
      * @return 返回的user对象中将不会含有pwd字段
      */
-    User login(String userName, String password, HttpSession httpSession);
+    User login(String userName, String password);
 
     /**
      * 用户登出
