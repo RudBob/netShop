@@ -6,20 +6,31 @@ import cn.edu.zzuli.util.Msg;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BlogApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebAppConfiguration
+@SpringBootTest(classes = BlogApplication.class)
 public class LoginControllerTest {
 
     @Autowired
     LoginController loginController;
+    @Autowired
+    HttpServletRequest request;
 
     @Test
     public void login() {
-//        Msg msg = loginController.login("001001", "123456");
-//        System.out.println(msg);
+        Msg msg = (Msg) loginController.login("001001", "123456");
+        System.out.println(msg);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        System.out.println(user);
     }
 
     @Test
