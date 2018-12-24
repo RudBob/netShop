@@ -5,6 +5,7 @@ import cn.edu.zzuli.mapper.UserMapper;
 import cn.edu.zzuli.service.user.EmailSignUpService;
 import cn.edu.zzuli.util.EmailUtil;
 import cn.edu.zzuli.util.FormatUtil;
+import cn.edu.zzuli.util.MD5Util;
 import cn.edu.zzuli.util.userDataSetting.UserStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import java.util.Random;
 public class EmailSignUpServiceImpl implements EmailSignUpService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    HttpServletRequest request;
 
     /**
      * 通过用户的E-mail注册用户
@@ -39,6 +42,8 @@ public class EmailSignUpServiceImpl implements EmailSignUpService {
             // 不合法则直接返回false
             return false;
         }
+        // 加密密码
+        pwd = MD5Util.md5Pwd(pwd);
         //先将一个未激活的用户插入到数据库中
         User user = User.getNewUserByEmail(email, pwd, userName);
         userMapper.addUser(user);
@@ -61,8 +66,6 @@ public class EmailSignUpServiceImpl implements EmailSignUpService {
         return false;
     }
 
-    @Autowired
-    HttpServletRequest request;
 
     /**
      * 发送给他一个校验码。
@@ -77,7 +80,7 @@ public class EmailSignUpServiceImpl implements EmailSignUpService {
         for (int i = 0; i < 6; i++) {
             code.append(random.nextInt(10));
         }
-        String massage = "您的邮箱是"+ email+"，您的验证码是：" +code.toString()+"如果不知道，请无视。" ;
+        String massage = "您的邮箱是" + email + "，您的验证码是：" + code.toString() + "。如果不知道，请无视。";
         EmailUtil.sendMail(email, massage);
         session.setAttribute("code", code.toString());
     }

@@ -3,6 +3,7 @@ package cn.edu.zzuli.service.user.impl;
 import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.mapper.UserMapper;
 import cn.edu.zzuli.service.user.LoginService;
+import cn.edu.zzuli.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,10 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
-    public User login(String userName, String pwd,HttpSession session) {
-        //TODO MD5 加密
-
+    public User login(String userName, String pwd) {
+        HttpSession session = request.getSession();
+        //MD5 加密后再与数据库中的密码进行比对
+        pwd = MD5Util.md5Pwd(pwd);
         // 通过userName和pwd得到数据库中对应的记录,
         User user = userMapper.login(userName, pwd);
         if (user != null) {
