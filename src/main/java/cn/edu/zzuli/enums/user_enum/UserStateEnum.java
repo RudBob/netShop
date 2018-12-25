@@ -1,4 +1,4 @@
-package cn.edu.zzuli.util.userDataSetting;
+package cn.edu.zzuli.enums.user_enum;
 
 import java.util.HashMap;
 import java.util.Map;

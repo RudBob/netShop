@@ -2,11 +2,11 @@ package cn.edu.zzuli.controller;
 
 import cn.edu.zzuli.BlogApplication;
 import cn.edu.zzuli.bean.User;
+import cn.edu.zzuli.controller.user.LoginController;
 import cn.edu.zzuli.util.Msg;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -35,5 +35,6 @@ public class LoginControllerTest {
 
     @Test
     public void logout() {
+
     }
 }

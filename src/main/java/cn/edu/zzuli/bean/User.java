@@ -1,7 +1,7 @@
 package cn.edu.zzuli.bean;
 
-import cn.edu.zzuli.util.userDataSetting.UserRoleEnum;
-import cn.edu.zzuli.util.userDataSetting.UserStateEnum;
+import cn.edu.zzuli.enums.user_enum.UserRoleEnum;
+import cn.edu.zzuli.enums.user_enum.UserStateEnum;
 
 import java.util.Objects;
 

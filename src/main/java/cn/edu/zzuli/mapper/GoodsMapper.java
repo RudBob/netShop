@@ -3,6 +3,8 @@ package cn.edu.zzuli.mapper;
 import cn.edu.zzuli.bean.Goods;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface GoodsMapper {
     int deleteByPrimaryKey(Integer goodsId);
@@ -16,4 +18,6 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    List<Goods> selectGoodsByShopId(Integer shopId);
 }

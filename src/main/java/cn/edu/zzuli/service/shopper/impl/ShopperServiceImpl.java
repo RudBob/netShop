@@ -2,16 +2,14 @@ package cn.edu.zzuli.service.shopper.impl;
 
 import cn.edu.zzuli.bean.Shop;
 import cn.edu.zzuli.bean.User;
-import cn.edu.zzuli.mapper.ShopMapper;
+import cn.edu.zzuli.service.shop.ShopService;
 import cn.edu.zzuli.service.shopper.ShopperService;
 import cn.edu.zzuli.service.user.UserService;
-import cn.edu.zzuli.util.BaseUtil;
 import cn.edu.zzuli.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @ClassName ShopperServiceImpl
@@ -22,12 +20,8 @@ import java.util.List;
  */
 @Service
 public class ShopperServiceImpl implements ShopperService {
-
     @Autowired
-    HttpServletRequest request;
-
-    @Autowired
-    ShopMapper shopMapper;
+    ShopService shopService;
     @Autowired
     UserService userService;
 
@@ -51,8 +45,7 @@ public class ShopperServiceImpl implements ShopperService {
      */
     public boolean becomeShopper(String shopName) {
         //先判断一个店的名字是否存在.
-        List<Shop> shops = shopMapper.selectShopByName(shopName);
-        if (shops.size() != 0) {
+        if (shopService.shopNameIsExist(shopName)) {
             return false;
         }
         // 改变用户的role，生成一个新的商店。
@@ -61,19 +54,8 @@ public class ShopperServiceImpl implements ShopperService {
         SessionUtil.updateUserInSession(user);
         // 生成一个新店.
         Shop shop = Shop.shopFactory(shopName, user);
-        shopMapper.insert(shop);
+        shopService.addShop(shop);
         return true;
-    }
-
-    /**
-     * 判断商店的名字是否存在
-     *
-     * @param shopName
-     * @return
-     */
-    public boolean shopNameIsExist(String shopName) {
-        List<Shop> shops = shopMapper.selectShopByName(shopName);
-        return shops.size() != 0;
     }
 
 }

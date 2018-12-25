@@ -1,4 +1,4 @@
-package cn.edu.zzuli.controller;
+package cn.edu.zzuli.controller.user;
 
 import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.service.user.LoginService;

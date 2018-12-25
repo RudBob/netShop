@@ -6,7 +6,7 @@ import cn.edu.zzuli.service.user.EmailSignUpService;
 import cn.edu.zzuli.util.EmailUtil;
 import cn.edu.zzuli.util.FormatUtil;
 import cn.edu.zzuli.util.MD5Util;
-import cn.edu.zzuli.util.userDataSetting.UserStateEnum;
+import cn.edu.zzuli.enums.user_enum.UserStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

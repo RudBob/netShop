@@ -50,5 +50,4 @@ public class ShopperController {
         }
         return Msg.fail();
     }
-
 }

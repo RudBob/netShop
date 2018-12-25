@@ -23,10 +23,4 @@ public interface ShopperService {
      */
     public boolean becomeShopper(String shopName);
 
-    /**
-     * 判斷商店名字是否已经存在
-     *
-     * @param shopName 商店名
-     */
-    public boolean shopNameIsExist(String shopName);
 }

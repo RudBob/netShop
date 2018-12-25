@@ -16,12 +16,10 @@ import javax.servlet.http.HttpSession;
  */
 public class SessionUtil {
     @Autowired
-
     private static HttpServletRequest request;
 
     @Autowired
     private HttpServletRequest request2;
-
 
     @PostConstruct
     public void beforeInit() {

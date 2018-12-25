@@ -1,106 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zzuli.mapper.GoodsMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.Goods" >
-    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
-    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
-    <result column="sh_id" property="shId" jdbcType="INTEGER" />
-    <result column="sales" property="sales" jdbcType="INTEGER" />
-    <result column="price_refer" property="priceRefer" jdbcType="DOUBLE" />
-    <result column="price" property="price" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    goods_id, goods_name, sh_id, sales, price_refer, price
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from goods
-    where goods_id = #{goodsId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from goods
-    where goods_id = #{goodsId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.edu.zzuli.bean.Goods" >
-    insert into goods (goods_id, goods_name, sh_id, 
-      sales, price_refer, price
-      )
-    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{shId,jdbcType=INTEGER}, 
-      #{sales,jdbcType=INTEGER}, #{priceRefer,jdbcType=DOUBLE}, #{price,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Goods" >
-    insert into goods
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="goodsId != null" >
+<mapper namespace="cn.edu.zzuli.mapper.GoodsMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.Goods">
+        <id column="goods_id" property="goodsId" jdbcType="INTEGER"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="sh_id" property="shId" jdbcType="INTEGER"/>
+        <result column="sales" property="sales" jdbcType="INTEGER"/>
+        <result column="price_refer" property="priceRefer" jdbcType="DOUBLE"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="stock" property="stock" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
         goods_id,
-      </if>
-      <if test="goodsName != null" >
         goods_name,
-      </if>
-      <if test="shId != null" >
         sh_id,
-      </if>
-      <if test="sales != null" >
         sales,
-      </if>
-      <if test="priceRefer != null" >
         price_refer,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="goodsId != null" >
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsName != null" >
-        #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="shId != null" >
-        #{shId,jdbcType=INTEGER},
-      </if>
-      <if test="sales != null" >
-        #{sales,jdbcType=INTEGER},
-      </if>
-      <if test="priceRefer != null" >
-        #{priceRefer,jdbcType=DOUBLE},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.Goods" >
-    update goods
-    <set >
-      <if test="goodsName != null" >
-        goods_name = #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="shId != null" >
-        sh_id = #{shId,jdbcType=INTEGER},
-      </if>
-      <if test="sales != null" >
-        sales = #{sales,jdbcType=INTEGER},
-      </if>
-      <if test="priceRefer != null" >
-        price_refer = #{priceRefer,jdbcType=DOUBLE},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=INTEGER},
-      </if>
-    </set>
-    where goods_id = #{goodsId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.Goods" >
-    update goods
-    set goods_name = #{goodsName,jdbcType=VARCHAR},
-      sh_id = #{shId,jdbcType=INTEGER},
-      sales = #{sales,jdbcType=INTEGER},
-      price_refer = #{priceRefer,jdbcType=DOUBLE},
-      price = #{price,jdbcType=INTEGER}
-    where goods_id = #{goodsId,jdbcType=INTEGER}
-  </update>
+        price，
+        stock
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </select>
+    <select id="selectGoodsByShopId" resultType="cn.edu.zzuli.bean.Goods">
+        select
+        <include refid="Base_Column_List"/>
+        from goods where sh_id = #{shopId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from goods
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.Goods">
+        insert into goods (goods_id, goods_name, sh_id,
+                           sales, price_refer, price)
+        values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{shId,jdbcType=INTEGER},
+                #{sales,jdbcType=INTEGER}, #{priceRefer,jdbcType=DOUBLE}, #{price,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="shId != null">
+                sh_id,
+            </if>
+            <if test="sales != null">
+                sales,
+            </if>
+            <if test="priceRefer != null">
+                price_refer,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="shId != null">
+                #{shId,jdbcType=INTEGER},
+            </if>
+            <if test="sales != null">
+                #{sales,jdbcType=INTEGER},
+            </if>
+            <if test="priceRefer != null">
+                #{priceRefer,jdbcType=DOUBLE},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.Goods">
+        update goods
+        <set>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="shId != null">
+                sh_id = #{shId,jdbcType=INTEGER},
+            </if>
+            <if test="sales != null">
+                sales = #{sales,jdbcType=INTEGER},
+            </if>
+            <if test="priceRefer != null">
+                price_refer = #{priceRefer,jdbcType=DOUBLE},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=INTEGER},
+            </if>
+        </set>
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.Goods">
+        update goods
+        set goods_name  = #{goodsName,jdbcType=VARCHAR},
+            sh_id       = #{shId,jdbcType=INTEGER},
+            sales       = #{sales,jdbcType=INTEGER},
+            price_refer = #{priceRefer,jdbcType=DOUBLE},
+            price       = #{price,jdbcType=INTEGER}
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </update>
 </mapper>

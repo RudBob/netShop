@@ -1,7 +1,7 @@
 package cn.edu.zzuli.controller.shopper;
 
 import cn.edu.zzuli.BlogApplication;
-import cn.edu.zzuli.controller.LoginController;
+import cn.edu.zzuli.controller.user.LoginController;
 import cn.edu.zzuli.util.Msg;
 import org.junit.Before;
 import org.junit.Test;

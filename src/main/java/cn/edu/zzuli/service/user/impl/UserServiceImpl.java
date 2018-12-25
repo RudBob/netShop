@@ -3,7 +3,7 @@ package cn.edu.zzuli.service.user.impl;
 import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.mapper.UserMapper;
 import cn.edu.zzuli.service.user.UserService;
-import cn.edu.zzuli.util.userDataSetting.UserRoleEnum;
+import cn.edu.zzuli.enums.user_enum.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
