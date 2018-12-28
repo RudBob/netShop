@@ -1,4 +1,4 @@
-package cn.edu.zzuli.controller.user;
+package cn.edu.zzuli.controller.user.signup;
 
 import cn.edu.zzuli.service.user.SignService;
 import cn.edu.zzuli.util.Msg;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(description = "用户的注册注销类api")
 @RestController
-@RequestMapping("/sign")
+@RequestMapping("/signDown")
 public class SignController {
 
     /**

@@ -1,5 +1,6 @@
 package cn.edu.zzuli.util;
 
+import cn.edu.zzuli.bean.Shop;
 import cn.edu.zzuli.bean.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class SessionUtil {
     @Autowired
     private HttpServletRequest request2;
 
+
     @PostConstruct
     public void beforeInit() {
         request = request2;
@@ -30,6 +32,10 @@ public class SessionUtil {
      * user在session中的名字，也就是键值对的键。
      */
     private static final String USER_NAME_IN_SESSION = "user";
+    /**
+     * shop在session中的名字，也就是键值对的键。
+     */
+    private static final String SHOP_NAME_IN_SESSION = "shop";
 
     /**
      * 从session中获取到当前用户
@@ -54,7 +60,7 @@ public class SessionUtil {
     /**
      * 将user放入Session对象中
      *
-     * @param user
+     * @param user 用户
      * @return
      */
     public static User putUserIntoSession(User user) {
@@ -62,6 +68,7 @@ public class SessionUtil {
         session.setAttribute(USER_NAME_IN_SESSION, user);
         return getUserFromSession();
     }
+
 
     /**
      * 从session中移除User对象
@@ -72,6 +79,42 @@ public class SessionUtil {
         HttpSession session = request.getSession();
         User user = getUserFromSession();
         session.removeAttribute(USER_NAME_IN_SESSION);
+        // 移出商店,如果有的话
+        if (getShopFromSession() != null) {
+            removeShopFromSession();
+        }
         return user;
     }
+
+    /**
+     * 将shop放入Session对象
+     *
+     * @param shop 商店
+     */
+    public static void putShopIntoSession(Shop shop) {
+        HttpSession session = request.getSession();
+        session.setAttribute(SHOP_NAME_IN_SESSION, shop);
+    }
+
+    /**
+     * 从session中移除User对象
+     *
+     * @return
+     */
+    public static Shop removeShopFromSession() {
+        HttpSession session = request.getSession();
+        Shop shop = getShopFromSession();
+        session.removeAttribute(SHOP_NAME_IN_SESSION);
+        return shop;
+    }
+
+    /**
+     * 从Session中获取到Shop
+     *
+     * @return 将Session中的Shop返回
+     */
+    private static Shop getShopFromSession() {
+        return (Shop) request.getSession().getAttribute(SHOP_NAME_IN_SESSION);
+    }
+
 }

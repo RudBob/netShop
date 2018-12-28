@@ -72,7 +72,7 @@
                 role = #{user.role}
             </if>
         </set>
-        WHERE user_id = #{user.userId}
+        WHERE user_id = #{user.userMoneyId}
     </update>
     <select id="login" resultMap="simpleMap">
         select

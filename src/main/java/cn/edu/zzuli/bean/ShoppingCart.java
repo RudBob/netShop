@@ -3,11 +3,45 @@ package cn.edu.zzuli.bean;
 public class ShoppingCart {
     private Integer cartId;
 
-    private Integer goodsId;
+    private Goods goods;
 
     private Integer userId;
 
     private Integer num;
+
+    public ShoppingCart() {
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "cartId=" + cartId +
+                ", goods=" + goods +
+                ", userId=" + userId +
+                ", num=" + num +
+                '}';
+    }
+
+    public static ShoppingCart shoppingCartFactory(Goods goods, Integer userId) {
+        // 默认加入购物车的数量为1个。
+        int num = 1;
+        return shoppingCartFactory(goods, userId, num);
+    }
+
+    public static ShoppingCart shoppingCartFactory(Goods goods, Integer userId, Integer num) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setGoods(goods);
+        shoppingCart.setUserId(userId);
+        shoppingCart.setNum(num);
+        return shoppingCart;
+    }
+
+    public ShoppingCart(Integer cartId, Goods goods, Integer userId, Integer num) {
+        this.cartId = cartId;
+        this.goods = goods;
+        this.userId = userId;
+        this.num = num;
+    }
 
     public Integer getCartId() {
         return cartId;
@@ -17,12 +51,12 @@ public class ShoppingCart {
         this.cartId = cartId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public Integer getUserId() {
@@ -40,4 +74,5 @@ public class ShoppingCart {
     public void setNum(Integer num) {
         this.num = num;
     }
+
 }

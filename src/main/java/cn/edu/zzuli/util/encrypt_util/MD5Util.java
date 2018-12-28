@@ -1,4 +1,4 @@
-package cn.edu.zzuli.util;
+package cn.edu.zzuli.util.encrypt_util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

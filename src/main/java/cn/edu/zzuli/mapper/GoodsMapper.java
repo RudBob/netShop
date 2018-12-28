@@ -4,6 +4,7 @@ import cn.edu.zzuli.bean.Goods;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface GoodsMapper {
@@ -20,4 +21,6 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
 
     List<Goods> selectGoodsByShopId(Integer shopId);
+
+    List<Goods> selectGoodsByInfo(Map<String,Object> info);
 }

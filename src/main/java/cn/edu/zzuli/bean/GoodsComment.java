@@ -1,11 +1,34 @@
 package cn.edu.zzuli.bean;
 
+/**
+ * 商品下的用户评论
+ */
 public class GoodsComment {
     private Integer cdId;
 
     private String context;
 
     private String assessLevel;
+
+    private Integer userId;
+
+    @Override
+    public String toString() {
+        return "GoodsComment{" +
+                "cdId=" + cdId +
+                ", context='" + context + '\'' +
+                ", assessLevel='" + assessLevel + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public Integer getCdId() {
         return cdId;

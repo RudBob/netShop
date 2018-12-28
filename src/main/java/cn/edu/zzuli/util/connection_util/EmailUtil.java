@@ -1,4 +1,4 @@
-package cn.edu.zzuli.util;
+package cn.edu.zzuli.util.connection_util;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

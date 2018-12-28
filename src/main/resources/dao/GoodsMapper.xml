@@ -16,19 +16,55 @@
         sh_id,
         sales,
         price_refer,
-        price，
+        price,
         stock
     </sql>
+    <sql id="Select_Base_Column_List_From_Goods">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+
         select
         <include refid="Base_Column_List"/>
         from goods
         where goods_id = #{goodsId,jdbcType=INTEGER}
     </select>
     <select id="selectGoodsByShopId" resultType="cn.edu.zzuli.bean.Goods">
-        select
+        elect
         <include refid="Base_Column_List"/>
-        from goods where sh_id = #{shopId,jdbcType=INTEGER}
+        from goods
+        where sh_id = #{shopId,jdbcType=INTEGER}
+    </select>
+    <select id="selectGoodsByInfo" resultType="cn.edu.zzuli.bean.Goods">
+        elect
+        <include refid="Base_Column_List"/>
+        from goods
+        <where>
+            <if test="information != null">
+                goods_name LIKE %#{information}%
+            </if>
+            <choose>
+                <when test="orderByTime != null">
+                    ORDER BY goods_id
+                </when>
+                <otherwise>
+                    <choose>
+                        <when test="orderBySales != null">
+                            ORDER BY sales
+                        </when>
+                        <otherwise>
+                            <choose>
+                                <when test="orderByPrice != null">
+                                    ORDER BY price
+                                </when>
+                            </choose>
+                        </otherwise>
+                    </choose>
+                </otherwise>
+            </choose>
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

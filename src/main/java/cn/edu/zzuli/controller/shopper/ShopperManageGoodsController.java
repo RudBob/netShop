@@ -32,10 +32,14 @@ public class ShopperManageGoodsController {
      */
     @RequestMapping(value = "putGoodsOnShelves", method = RequestMethod.POST)
     public Msg putGoodsOnShelves(@RequestParam(value = "goodsName") String goodsName,
-                                 @RequestParam(value = "priceRefer") Double priceRefer,
-                                 @RequestParam(value = "price") Double price) {
-        Goods goods = shopperManageGoodsService.putGoodsOnShelves(goodsName,priceRefer,price);
-        return Msg.success();
+                                 @RequestParam(value = "price") Double price,
+                                 @RequestParam(value = "priceRefer", required = false) Double priceRefer,
+                                 @RequestParam(value = "goodsStock", defaultValue = "0", required = false) Integer goodsStock) {
+        Goods goods = shopperManageGoodsService.putGoodsOnShelves(goodsName, priceRefer, price, goodsStock);
+        if (goods != null) {
+            return Msg.success().addResData("goods", goods);
+        }
+        return Msg.fail();
     }
 
     /**
@@ -47,7 +51,10 @@ public class ShopperManageGoodsController {
     @RequestMapping(value = "putGoodsOutShelves", method = RequestMethod.POST)
     public Msg putGoodsOutShelves(@RequestParam(value = "goodsId") Integer goodsId) {
         Goods goods = shopperManageGoodsService.putGoodsOutShelves(goodsId);
-        return Msg.success();
+        if (goods != null) {
+            return Msg.success().addResData("goods", goods);
+        }
+        return Msg.fail();
     }
 
     /**
@@ -60,11 +67,14 @@ public class ShopperManageGoodsController {
      */
     @RequestMapping(value = "updateGoodsInfo", method = RequestMethod.POST)
     public Msg updateGoodsInfo(@RequestParam(value = "goodsId") Integer goodsId,
-                               @RequestParam(value = "goodsName") String goodsName,
-                               @RequestParam(value = "priceRefer") Double priceRefer,
-                               @RequestParam(value = "price") Double price) {
-        Goods goods = shopperManageGoodsService.updateGoodsInfo(goodsId);
-        return Msg.success();
+                               @RequestParam(value = "goodsName", required = false) String goodsName,
+                               @RequestParam(value = "price", required = false) Double price,
+                               @RequestParam(value = "priceRefer", required = false) Double priceRefer,
+                               @RequestParam(value = "goodsStock", required = false) Integer goodsStock) {
+        Goods goods = shopperManageGoodsService.updateGoodsInfo(goodsId,goodsName,price,priceRefer,goodsStock);
+        if (goods != null) {
+            return Msg.success().addResData("goods", goods);
+        }
+        return Msg.fail();
     }
-
 }

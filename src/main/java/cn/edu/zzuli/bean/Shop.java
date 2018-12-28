@@ -1,5 +1,12 @@
 package cn.edu.zzuli.bean;
 
+/**
+ * @ClassName Shop
+ * @Description 商店
+ * @Author 任耀
+ * @Date 2018年12月27日 10点55分
+ * @Version 1.0
+ */
 public class Shop {
     private Integer shId;
 

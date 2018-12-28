@@ -52,7 +52,7 @@
         insert into shop (sh_id, sh_name, fans_num,
                           shopper_id)
         values (#{shId,jdbcType=INTEGER}, #{shName,jdbcType=VARCHAR}, #{fansNum,jdbcType=INTEGER},
-                #{shopper.userId,jdbcType=INTEGER})
+                #{shopper.userMoneyId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Shop">
         insert into shop
@@ -67,7 +67,7 @@
                 fans_num,
             </if>
             <if test="shopper != null">
-                <if test="shopper.userId != null">
+                <if test="shopper.userMoneyId != null">
                     shopper_id,
                 </if>
             </if>
@@ -83,8 +83,8 @@
                 #{fansNum,jdbcType=INTEGER},
             </if>
             <if test="shopper != null">
-                <if test="shopper.userId != null">
-                    #{shopper.userId,jdbcType=INTEGER},
+                <if test="shopper.userMoneyId != null">
+                    #{shopper.userMoneyId,jdbcType=INTEGER},
                 </if>
             </if>
         </trim>
@@ -99,8 +99,8 @@
                 fans_num = #{fansNum,jdbcType=INTEGER},
             </if>
             <if test="shopper != null">
-                <if test="shopper.userId != null">
-                    shopper_id = #{shopper.userId,jdbcType=INTEGER},
+                <if test="shopper.userMoneyId != null">
+                    shopper_id = #{shopper.userMoneyId,jdbcType=INTEGER},
                 </if>
             </if>
         </set>
@@ -110,7 +110,7 @@
         update shop
         set sh_name    = #{shName,jdbcType=VARCHAR},
             fans_num   = #{fansNum,jdbcType=INTEGER},
-            shopper_id = #{shopper.userId,jdbcType=INTEGER}
+            shopper_id = #{shopper.userMoneyId,jdbcType=INTEGER}
         where sh_id = #{shId,jdbcType=INTEGER}
     </update>
 </mapper>

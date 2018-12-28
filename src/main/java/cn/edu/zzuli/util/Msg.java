@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Msg {
-    private boolean success;
+    private int code=200;
     private String msg;
     private Map<String, Object> data;
     // 私有化构造器
@@ -14,14 +14,14 @@ public class Msg {
     // 成功
     public static Msg success(){
         Msg msg = new Msg();
-        msg.success = true;
+        msg.code= 100;
         msg.data = new HashMap<String, Object>();
         return msg;
     }
     // 失败
     public static Msg fail(){
         Msg msg = new Msg();
-        msg.success = false;
+        msg.code= 200;
         msg.data = new HashMap<String, Object>();
         return msg;
     }
@@ -34,12 +34,12 @@ public class Msg {
         return this;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public int getCode() {
+        return code;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMsg() {
@@ -57,7 +57,7 @@ public class Msg {
     @Override
     public String toString() {
         return "Msg{" +
-                "success=" + success +
+                "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
                 '}';

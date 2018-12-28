@@ -1,82 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zzuli.mapper.ShoppingCartMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.ShoppingCart" >
-    <id column="cart_id" property="cartId" jdbcType="INTEGER" />
-    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    cart_id, goods_id, user_id, num
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from shopping_cart
-    where cart_id = #{cartId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from shopping_cart
-    where cart_id = #{cartId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.edu.zzuli.bean.ShoppingCart" >
-    insert into shopping_cart (cart_id, goods_id, user_id, 
-      num)
-    values (#{cartId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{num,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.ShoppingCart" >
-    insert into shopping_cart
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cartId != null" >
+<mapper namespace="cn.edu.zzuli.mapper.ShoppingCartMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.ShoppingCart">
+        <id column="cart_id" property="cartId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <association property="goods" javaType="cn.edu.zzuli.bean.Goods">
+            <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        </association>
+    </resultMap>
+    <resultMap id="CascadeResultMap" type="cn.edu.zzuli.bean.ShoppingCart">
+        <id column="cart_id" property="cartId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <association property="goods" javaType="cn.edu.zzuli.bean.Goods"
+                     select="cn.edu.zzuli.mapper.GoodsMapper.selectByPrimaryKey"/>
+    </resultMap>
+    <sql id="Base_Column_List">
         cart_id,
-      </if>
-      <if test="goodsId != null" >
         goods_id,
-      </if>
-      <if test="userId != null" >
         user_id,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cartId != null" >
-        #{cartId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsId != null" >
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.ShoppingCart" >
-    update shopping_cart
-    <set >
-      <if test="goodsId != null" >
-        goods_id = #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=INTEGER},
-      </if>
-    </set>
-    where cart_id = #{cartId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.ShoppingCart" >
-    update shopping_cart
-    set goods_id = #{goodsId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      num = #{num,jdbcType=INTEGER}
-    where cart_id = #{cartId,jdbcType=INTEGER}
-  </update>
+        num
+    </sql>
+    <sql id="selectByPrimaryKeySql">
+        select
+        <include refid="Base_Column_List"/>
+        from shopping_cart
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        <include refid="selectByPrimaryKeySql"/>
+    </select>
+    <select id="selectByPrimaryKeyCascade" resultMap="CascadeResultMap" parameterType="java.lang.Integer">
+        <include refid="selectByPrimaryKeySql"/>
+    </select>
+    <select id="selectCartByInfoCascade" resultMap="CascadeResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shopping_cart
+        <where>
+            <if test="userMoneyId!=null">
+                user_id = #{userMoneyId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from shopping_cart
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.ShoppingCart">
+        insert into shopping_cart (cart_id, goods_id, user_id,
+                                   num)
+        values (#{cartId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{userMoneyId,jdbcType=INTEGER},
+                #{num,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.ShoppingCart">
+        insert into shopping_cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">
+                cart_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="userMoneyId != null">
+                user_id,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">
+                #{cartId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="userMoneyId != null">
+                #{userMoneyId,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.ShoppingCart">
+        update shopping_cart
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="userMoneyId != null">
+                user_id = #{userMoneyId,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+        </set>
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.ShoppingCart">
+        update shopping_cart
+        set goods_id = #{goodsId,jdbcType=INTEGER},
+            user_id  = #{userMoneyId,jdbcType=INTEGER},
+            num      = #{num,jdbcType=INTEGER}
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </update>
 </mapper>

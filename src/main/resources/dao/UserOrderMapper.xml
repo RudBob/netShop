@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zzuli.mapper.UserOrderMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.UserOrder">
+        <id column="uo_id" property="uoId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="order_datetime" property="orderDatetime" jdbcType="TIMESTAMP"/>
+        <result column="order_addr" property="orderAddr" jdbcType="VARCHAR"/>
+        <result column="order_username" property="orderUsername" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uo_id,
+        user_id,
+        order_datetime,
+        order_addr,
+        order_username
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_orders
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from user_orders
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.UserOrder">
+        insert into user_orders (uo_id, user_id, order_datetime,
+                                 order_addr, order_username)
+        values (#{uoId,jdbcType=INTEGER}, #{userMoneyId,jdbcType=INTEGER}, #{orderDatetime,jdbcType=TIMESTAMP},
+                #{orderAddr,jdbcType=VARCHAR}, #{orderUsername,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.UserOrder">
+        insert into user_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uoId != null">
+                uo_id,
+            </if>
+            <if test="userMoneyId != null">
+                user_id,
+            </if>
+            <if test="orderDatetime != null">
+                order_datetime,
+            </if>
+            <if test="orderAddr != null">
+                order_addr,
+            </if>
+            <if test="orderUsername != null">
+                order_username,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uoId != null">
+                #{uoId,jdbcType=INTEGER},
+            </if>
+            <if test="userMoneyId != null">
+                #{userMoneyId,jdbcType=INTEGER},
+            </if>
+            <if test="orderDatetime != null">
+                #{orderDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderAddr != null">
+                #{orderAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="orderUsername != null">
+                #{orderUsername,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.UserOrder">
+        update user_orders
+        <set>
+            <if test="userMoneyId != null">
+                user_id = #{userMoneyId,jdbcType=INTEGER},
+            </if>
+            <if test="orderDatetime != null">
+                order_datetime = #{orderDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderAddr != null">
+                order_addr = #{orderAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="orderUsername != null">
+                order_username = #{orderUsername,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.UserOrder">
+        update user_orders
+        set user_id        = #{userMoneyId,jdbcType=INTEGER},
+            order_datetime = #{orderDatetime,jdbcType=TIMESTAMP},
+            order_addr     = #{orderAddr,jdbcType=VARCHAR},
+            order_username = #{orderUsername,jdbcType=VARCHAR}
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </update>
+</mapper>

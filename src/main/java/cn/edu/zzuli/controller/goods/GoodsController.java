@@ -24,16 +24,62 @@ public class GoodsController {
     /**
      * 展示一个店的所有商品
      *
-     * @param shopId
+     * @param shopId 商店的id
      * @return
      */
     @RequestMapping(value = "showGoods", method = RequestMethod.GET)
     public Msg showGoods(@RequestParam(value = "shopId") Integer shopId) {
         List<Goods> goodsList = goodsService.getGoodsInShop(shopId);
-        if (goodsList.size() != 0) {
+        return returnGoods(goodsList);
+    }
+
+    /**
+     * 用户条件查询商品,默认排序：综合排序
+     */
+    @RequestMapping(value = "selectGoodsByInfo")
+    public Msg showGoodsByInfo(@RequestParam(value = "info") String info) {
+        List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.NO_ORDER);
+        return returnGoods(goodsList);
+    }
+
+                                                                                                                                             /**
+     * 用户条件查询商品,默认排序：时间排序
+     */
+    @RequestMapping(value = "showGoodsByInfoOrderByTime")
+    public Msg showGoodsByInfoOrderByTime(@RequestParam(value = "info") String info) {
+        List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_TIME);
+        return returnGoods(goodsList);
+    }
+
+
+    /**
+     * 用户条件查询商品,默认排序：销量排序
+     */
+    @RequestMapping(value = "showGoodsByInfoOrderBySales")
+    public Msg showGoodsByInfoOrderBySales(@RequestParam(value = "info") String info) {
+        List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_SALES);
+        return returnGoods(goodsList);
+    }
+
+    /**
+     * 用户条件查询商品,默认排序：价格排序
+     */
+    @RequestMapping(value = "showGoodsByInfoOrderBySales")
+    public Msg showGoodsByInfoOrderByPrice(@RequestParam(value = "info") String info) {
+        List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_PRICE);
+        return returnGoods(goodsList);
+    }
+
+    /**
+     * 返回值格式完全相同，所以进行了提取
+     *
+     * @param goodsList 商品列表
+     * @return
+     */
+    private Msg returnGoods(List<Goods> goodsList) {
+        if (goodsList != null && goodsList.size() != 0) {
             return Msg.success().addResData("goods", goodsList);
         }
-        // 这家商店没有上架任何商品
         return Msg.fail();
     }
 }

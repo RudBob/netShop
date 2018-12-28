@@ -1,11 +1,6 @@
 package cn.edu.zzuli.util;
 
-import cn.edu.zzuli.bean.User;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @ClassName BaseUtil
@@ -15,6 +10,23 @@ import javax.servlet.http.HttpSession;
  * @Version 1.0
  */
 public class BaseUtil {
-
+    /**
+     * 将条件封装至Map中，以便于能够在.xml中很好的调用
+     *
+     * @param info Map容器
+     * @param objs 待封装内容
+     */
+    public static void initInfo(Map<String, Object> info, Object... objs) {
+        // 清空info中的内容
+        info.clear();
+        // 如果待封装内容不是以String, Object的成双成对的出现，那么直接返回。
+        if (objs.length % 2 != 0) {
+            return;
+        }
+        // 依次放入map容器
+        for (int i = 0; i < objs.length; i++) {
+            info.put((String) objs[i], objs[++i]);
+        }
+    }
 
 }

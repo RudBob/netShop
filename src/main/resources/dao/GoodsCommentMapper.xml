@@ -1,71 +1,74 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zzuli.mapper.GoodsCommentMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.GoodsComment" >
-    <id column="cd_id" property="cdId" jdbcType="INTEGER" />
-    <result column="context" property="context" jdbcType="VARCHAR" />
-    <result column="assess_level" property="assessLevel" jdbcType="CHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    cd_id, context, assess_level
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from comment_goods
-    where cd_id = #{cdId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from comment_goods
-    where cd_id = #{cdId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.edu.zzuli.bean.GoodsComment" >
-    insert into comment_goods (cd_id, context, assess_level
-      )
-    values (#{cdId,jdbcType=INTEGER}, #{context,jdbcType=VARCHAR}, #{assessLevel,jdbcType=CHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.GoodsComment" >
-    insert into comment_goods
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cdId != null" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzuli.mapper.GoodsCommentMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.GoodsComment">
+        <id column="cd_id" jdbcType="INTEGER" property="cdId"/>
+        <result column="context" jdbcType="VARCHAR" property="context"/>
+        <result column="assess_level" jdbcType="CHAR" property="assessLevel"/>
+        <result column="user_id" jdbcType="CHAR" property="userId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
         cd_id,
-      </if>
-      <if test="context != null" >
-        context,
-      </if>
-      <if test="assessLevel != null" >
+        contexts,
         assess_level,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cdId != null" >
-        #{cdId,jdbcType=INTEGER},
-      </if>
-      <if test="context != null" >
-        #{context,jdbcType=VARCHAR},
-      </if>
-      <if test="assessLevel != null" >
-        #{assessLevel,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.GoodsComment" >
-    update comment_goods
-    <set >
-      <if test="context != null" >
-        context = #{context,jdbcType=VARCHAR},
-      </if>
-      <if test="assessLevel != null" >
-        assess_level = #{assessLevel,jdbcType=CHAR},
-      </if>
-    </set>
-    where cd_id = #{cdId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.GoodsComment" >
-    update comment_goods
-    set context = #{context,jdbcType=VARCHAR},
-      assess_level = #{assessLevel,jdbcType=CHAR}
-    where cd_id = #{cdId,jdbcType=INTEGER}
-  </update>
+        user_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment_goods
+        where cd_id = #{cdId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from comment_goods
+        where cd_id = #{cdId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.GoodsComment">
+        insert into comment_goods (cd_id, contexts, assess_level)
+        values (#{cdId,jdbcType=INTEGER}, #{context,jdbcType=VARCHAR}, #{assessLevel,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.GoodsComment">
+        insert into comment_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cdId != null">
+                cd_id,
+            </if>
+            <if test="context != null">
+                context,
+            </if>
+            <if test="assessLevel != null">
+                assess_level,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cdId != null">
+                #{cdId,jdbcType=INTEGER},
+            </if>
+            <if test="context != null">
+                #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="assessLevel != null">
+                #{assessLevel,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.GoodsComment">
+        update comment_goods
+        <set>
+            <if test="context != null">
+                context = #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="assessLevel != null">
+                assess_level = #{assessLevel,jdbcType=CHAR},
+            </if>
+        </set>
+        where cd_id = #{cdId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.GoodsComment">
+        update comment_goods
+        set contexts     = #{context,jdbcType=VARCHAR},
+            assess_level = #{assessLevel,jdbcType=CHAR}
+        where cd_id = #{cdId,jdbcType=INTEGER}
+    </update>
 </mapper>

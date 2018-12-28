@@ -43,5 +43,10 @@ public interface ShopService {
      */
     Shop getShopByShopperId(Integer userId);
 
+    /**
+     *
+     * @param shop
+     * @return
+     */
     int updateShopByShopId(Shop shop);
 }
