@@ -1,32 +1,28 @@
 package cn.edu.zzuli.bean;
 
 public class CartDetail {
+    private Integer detailId;
+
     private Integer userId;
 
     private Goods goods;
 
     private Integer num;
 
-    public static CartDetail shoppingCartFactory(Integer userId, Goods goods) {
-        int num = 1;
-        return shoppingCartFactory(userId, goods, num);
-    }
-
     public static CartDetail shoppingCartFactory(Integer userId, Goods goods, Integer num) {
-        CartDetail detail = new CartDetail();
-        detail.setGoods(goods);
-        detail.setUserId(userId);
-        detail.setNum(num);
-        return detail;
+        CartDetail cartDetail = new CartDetail();
+        cartDetail.setUserId(userId);
+        cartDetail.setGoods(goods);
+        cartDetail.setNum(num);
+        return cartDetail;
     }
 
-    public CartDetail() {
+    public Integer getDetailId() {
+        return detailId;
     }
 
-    public CartDetail(Integer userId, Goods goods, Integer num) {
-        this.userId = userId;
-        this.goods = goods;
-        this.num = num;
+    public void setDetailId(Integer detailId) {
+        this.detailId = detailId;
     }
 
     public Integer getUserId() {

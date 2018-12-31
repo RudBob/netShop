@@ -8,5 +8,4 @@ public interface UserService {
 
     int updateUserTel(String tel, String idCode);
 
-    void confirmTel(String tel);
 }

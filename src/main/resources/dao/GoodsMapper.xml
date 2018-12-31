@@ -9,6 +9,7 @@
         <result column="price_refer" property="priceRefer" jdbcType="DOUBLE"/>
         <result column="price" property="price" jdbcType="DOUBLE"/>
         <result column="stock" property="stock" jdbcType="INTEGER"/>
+        <result column="status" property="goodsEnum" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
         goods_id,

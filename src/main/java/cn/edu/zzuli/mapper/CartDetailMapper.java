@@ -5,15 +5,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
+
 @Mapper
 public interface CartDetailMapper {
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Integer detailId);
 
     int insert(CartDetail record);
 
     int insertSelective(CartDetail record);
 
-    CartDetail selectByPrimaryKey(Integer userId);
+    CartDetail selectByPrimaryKey(Integer detailId);
 
     int updateByPrimaryKeySelective(CartDetail record);
 

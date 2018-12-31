@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.zzuli.mapper.CartDetailMapper">
     <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.CartDetail">
-        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <id column="detail_id" property="detailId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="num" property="num" jdbcType="INTEGER"/>
-        <association property="goods" select="cn.edu.zzuli.mapper.GoodsMapper.selectByPrimaryKey" column="goods_id"/>
+        <association property="goods"
+                     select="cn.edu.zzuli.mapper.GoodsMapper.selectByPrimaryKey"
+                     column="goods_id"/>
     </resultMap>
     <sql id="Base_Column_List">
+        detail_id,
         user_id,
         goods_id,
         num
@@ -15,30 +19,38 @@
         select
         <include refid="Base_Column_List"/>
         from cart_detail
-        where user_id = #{userId,jdbcType=INTEGER}
+        where detail_id = #{detailId,jdbcType=INTEGER}
     </select>
     <select id="selectCartByInfo" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from cart_detail
         <where>
-            <if test="userId!=null">
+            <if test="userId != null">
                 AND user_id = #{userId}
+            </if>
+            <if test="goodsId != null">
+                AND goods_id = #{goodsId}
             </if>
         </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from cart_detail
-        where user_id = #{userId,jdbcType=INTEGER}
+        where detail_id = #{detailId,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="cn.edu.zzuli.bean.CartDetail">
-        insert into cart_detail (user_id, goods_id, num)
-        values (#{userId,jdbcType=INTEGER}, #{goods.goodsId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER})
+        insert into cart_detail (detail_id, user_id, goods_id,
+                                 num)
+        values (#{detailId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goods.goodsId,jdbcType=INTEGER},
+                #{num,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.CartDetail">
         insert into cart_detail
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">
+                detail_id,
+            </if>
             <if test="userId != null">
                 user_id,
             </if>
@@ -50,6 +62,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">
+                #{detailId,jdbcType=INTEGER},
+            </if>
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
@@ -64,6 +79,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.CartDetail">
         update cart_detail
         <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
             <if test="goods.goodsId != null">
                 goods_id = #{goods.goodsId,jdbcType=INTEGER},
             </if>
@@ -71,12 +89,13 @@
                 num = #{num,jdbcType=INTEGER},
             </if>
         </set>
-        where user_id = #{userId,jdbcType=INTEGER}
+        where detail_id = #{detailId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.CartDetail">
         update cart_detail
-        set goods_id = #{goods.goodsId,jdbcType=INTEGER},
+        set user_id  = #{userId,jdbcType=INTEGER},
+            goods_id = #{goods.goodsId,jdbcType=INTEGER},
             num      = #{num,jdbcType=INTEGER}
-        where user_id = #{userId,jdbcType=INTEGER}
+        where detail_id = #{detailId,jdbcType=INTEGER}
     </update>
 </mapper>

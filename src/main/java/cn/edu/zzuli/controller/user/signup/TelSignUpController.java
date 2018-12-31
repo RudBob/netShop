@@ -38,5 +38,12 @@ public class TelSignUpController {
         }
         return Msg.fail();
     }
-
+    /**
+     * 验证手机号
+     */
+    @RequestMapping(value = "confirmTel", method = RequestMethod.POST)
+    public Msg confirmTel(@RequestParam(value = "tel") String tel) {
+        signService.confirmTel(tel);
+        return Msg.success();
+    }
 }

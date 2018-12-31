@@ -16,4 +16,6 @@ public interface TelSignUpService {
      * @return
      */
     boolean registerByTel(String tel, String code, String pwd);
+
+    void confirmTel(String tel);
 }

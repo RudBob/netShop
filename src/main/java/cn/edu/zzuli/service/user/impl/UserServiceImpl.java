@@ -37,9 +37,4 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUser(user);
         return 1;
     }
-
-    @Override
-    public void confirmTel(String tel) {
-
-    }
 }

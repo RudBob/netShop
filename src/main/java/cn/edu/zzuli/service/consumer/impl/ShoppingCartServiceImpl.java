@@ -6,6 +6,7 @@ import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.mapper.CartDetailMapper;
 import cn.edu.zzuli.service.consumer.ShoppingCartService;
 import cn.edu.zzuli.service.goods.GoodsService;
+import cn.edu.zzuli.util.BaseUtil;
 import cn.edu.zzuli.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,11 +95,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Goods goods = goodsService.selectGoodsById(goodsId);
         //TODO: 进行逻辑判断
 
+        // 如果用户加入购物车的商品的数量不合法
+        if (num <= 0 || num >= goods.getStock()) {
+            return 0;
+        }
         User user = SessionUtil.getUserFromSession();
-        // 生成新的购物车记录
-        CartDetail shoppingCart = CartDetail.shoppingCartFactory(user.getUserId(), goods, num);
-        // 插入数据库
-        int resLineNum = cartDetailMapper.insertSelective(shoppingCart);
-        return resLineNum;
+        // 如果用户的购物车里面有这个商品，那么合并两个商品的数量
+        Map<String, Object> infoForShoppingCart = new HashMap<>();
+        BaseUtil.initInfo(infoForShoppingCart, "userId", user.getUserId(), "goodsId", goodsId);
+        List<CartDetail> cartDetails = cartDetailMapper.selectCartByInfo(infoForShoppingCart);
+        // 购物车中已经存在这个商品了
+        if (cartDetails != null && cartDetails.size() != 0) {
+            CartDetail cartDetail = cartDetails.get(0);
+            cartDetail.setNum(cartDetail.getNum() + num);
+            return cartDetailMapper.updateByPrimaryKey(cartDetail);
+        } else {
+            // 生成新的购物车记录
+            CartDetail cartDetail = CartDetail.shoppingCartFactory(user.getUserId(), goods, num);
+            // 插入数据库
+            return cartDetailMapper.insertSelective(cartDetail);
+        }
     }
 }

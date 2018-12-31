@@ -48,12 +48,4 @@ public class UserController {
         return Msg.fail();
     }
 
-    /**
-     * 验证手机号
-     */
-    @RequestMapping(value = "confirmTel", method = RequestMethod.POST)
-    public Msg confirmTel(@RequestParam(value = "tel") String tel) {
-        userService.confirmTel(tel);
-        return Msg.success();
-    }
 }
