@@ -25,25 +25,24 @@
         from goods
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-
         select
         <include refid="Base_Column_List"/>
         from goods
         where goods_id = #{goodsId,jdbcType=INTEGER}
     </select>
-    <select id="selectGoodsByShopId" resultType="cn.edu.zzuli.bean.Goods">
-        elect
+    <select id="selectGoodsByShopId" resultMap="BaseResultMap">
+        select
         <include refid="Base_Column_List"/>
         from goods
         where sh_id = #{shopId,jdbcType=INTEGER}
     </select>
-    <select id="selectGoodsByInfo" resultType="cn.edu.zzuli.bean.Goods">
-        elect
+    <select id="selectGoodsByInfo" resultMap="BaseResultMap">
+        select
         <include refid="Base_Column_List"/>
         from goods
         <where>
             <if test="information != null">
-                goods_name LIKE %#{information}%
+                goods_name LIKE '%'||#{information}||'%'
             </if>
             <choose>
                 <when test="orderByTime != null">

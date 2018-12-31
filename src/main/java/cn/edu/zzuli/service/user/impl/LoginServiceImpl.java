@@ -11,6 +11,8 @@ import cn.edu.zzuli.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 登录操作的相关实现
  */
@@ -21,12 +23,15 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     ShopService shopService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     /**
      * 用户登录操作。将用户存入session，如果他是店家，那么商店也应该被存入Session
      *
      * @param userName 用户名称
      * @param pwd      用户密码
-     * @return
+     * @return 相关的用户信息
      */
     @Override
     public User login(String userName, String pwd) {

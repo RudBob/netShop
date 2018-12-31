@@ -1,8 +1,9 @@
 package cn.edu.zzuli.controller.consumer;
 
-import cn.edu.zzuli.bean.ShoppingCart;
+import cn.edu.zzuli.bean.CartDetail;
 import cn.edu.zzuli.service.consumer.ShoppingCartService;
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 顾客对自己购物车的操作
+ */
+@Api(description = "顾客对购物车的操作")
 @RestController
 @RequestMapping(value = "/shopCart")
 public class ShoppingCartController {
@@ -24,7 +29,7 @@ public class ShoppingCartController {
      */
     @RequestMapping(value = "showCart", method = RequestMethod.GET)
     public Msg showUserCart() {
-        List<ShoppingCart> userShoppingCart = shoppingCartService.showCart();
+        List<CartDetail> userShoppingCart = shoppingCartService.showCart();
         if (userShoppingCart != null && userShoppingCart.size() != 0) {
             return Msg.success().addResData("shoppingCart", userShoppingCart);
         }
@@ -69,8 +74,9 @@ public class ShoppingCartController {
      * @return
      */
     @RequestMapping(value = "addGoodsIntoCart", method = RequestMethod.GET)
-    public Msg addGoodsIntoCart(@RequestParam(value = "goodsId") Integer goodsId) {
-        int addLineNum = shoppingCartService.addGoodsIntoCart(goodsId);
+    public Msg addGoodsIntoCart(@RequestParam(value = "goodsId") Integer goodsId,
+                                @RequestParam(value = "num",defaultValue = "1")Integer num) {
+        int addLineNum = shoppingCartService.addGoodsIntoCart(goodsId,num);
         if (addLineNum == 0) {
             return Msg.fail();
         } else {

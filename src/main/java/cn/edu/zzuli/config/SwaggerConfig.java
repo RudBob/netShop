@@ -34,7 +34,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder() //页面标题
                 .title("Spring Boot使用 Swagger2 构建RestFul API") //创建人
-                .contact(new Contact("小川", "http://localhost:8764/swagger-ui.html", "1598078574@qq.com")) //版本号
+                .contact(new Contact("过道", "http://localhost:8764/swagger-ui.html", "1014698129@qq.com")) //版本号
                 .version("1.0") //描述
                 .description("跑圈模块接口文档").build();
     }

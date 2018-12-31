@@ -6,7 +6,9 @@ package cn.edu.zzuli.bean;
 public class OrderData {
     private Integer goodsOrderId;
 
-    private Integer goodsId;
+    private Goods goods;
+
+    private Integer num;
 
     private Double goodsPrice;
     /**
@@ -21,10 +23,19 @@ public class OrderData {
     public String toString() {
         return "OrderData{" +
                 "goodsOrderId=" + goodsOrderId +
-                ", goodsId=" + goodsId +
+                ", goods=" + goods +
+                ", num=" + num +
                 ", goodsPrice=" + goodsPrice +
                 ", uoId=" + uoId +
                 '}';
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     public Integer getGoodsOrderId() {
@@ -35,12 +46,12 @@ public class OrderData {
         this.goodsOrderId = goodsOrderId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public Double getGoodsPrice() {

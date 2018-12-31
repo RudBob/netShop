@@ -4,6 +4,7 @@ import cn.edu.zzuli.bean.Shop;
 import cn.edu.zzuli.mapper.ShopMapper;
 import cn.edu.zzuli.service.shop.ShopService;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Service
 public class ShopServiceImpl implements ShopService {
-    @Mapper
+    @Autowired
     ShopMapper shopMapper;
 
 
@@ -30,7 +31,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public boolean shopNameIsExist(String shopName) {
         List<Shop> shops = shopMapper.selectShopByName(shopName);
-        return shops.size() != 0;
+        return shops != null && shops.size() != 0;
     }
 
     @Override
@@ -54,8 +55,8 @@ public class ShopServiceImpl implements ShopService {
     /**
      * 通过店主的userId查询商店
      *
-     * @param userId
-     * @return
+     * @param userId    用户id
+     * @return  Shop
      */
     @Override
     public Shop getShopByShopperId(Integer userId) {

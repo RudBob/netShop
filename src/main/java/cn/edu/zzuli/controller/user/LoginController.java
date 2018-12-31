@@ -40,8 +40,8 @@ public class LoginController {
             @ApiImplicitParam(name = "pwd", value = "用户密码", required = true, paramType = "query", dataType = "String")
     })
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Msg login(@RequestParam(value = "username",required = true) String username,
-                     @RequestParam(value = "pwd",required = true) String pwd) {
+    public Msg login(@RequestParam(value = "username") String username,
+                     @RequestParam(value = "pwd") String pwd) {
         User user = loginService.login(username, pwd);
         if (user == null) {
             // 用户不存在

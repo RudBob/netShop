@@ -2,43 +2,47 @@ package cn.edu.zzuli.bean;
 
 import cn.edu.zzuli.enums.order_enum.OrderStatusEnum;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 一个商品订单
+ * 用户订单
  */
 public class UserOrder {
     private Integer uoId;
-    /**
-     * 用户编号
-     */
+
     private Integer userId;
-    /**
-     * 订单日期
-     */
-    private Date orderDatetime;
-    /**
-     * 订单地址
-     */
-    private String orderAddr;
-    /**
-     * 收货名
-     */
-    private String orderUsername;
+
+    private LocalDateTime orderDatetime;
+
+    private String receiverAddr;
+
+    private String receiverName;
+
+    private String receiverTel;
+
+    private OrderStatusEnum orderStatus;
 
     /**
-     * 订单中的数据
+     * 订单详情
      */
     private List<OrderData> orderDataList;
 
-    /**
-     * 订单状态
-     */
-    private OrderStatusEnum oderStatus;
+
 
     public UserOrder() {
+    }
 
+    public static UserOrder userOrderFactory(Integer userId, UserAdd userAddr) {
+        UserOrder userOrder = new UserOrder();
+        userOrder.setOrderDatetime(LocalDateTime.now());
+        userOrder.setOrderStatus(OrderStatusEnum.NOT_PAY);
+        userOrder.setUserId(userId);
+        userOrder.setReceiverAddr(userAddr.getAddName());
+        userOrder.setReceiverName(userAddr.getReceiverName());
+        userOrder.setReceiverTel(userAddr.getReceiverTel());
+
+        return userOrder;
     }
 
     @Override
@@ -47,10 +51,11 @@ public class UserOrder {
                 "uoId=" + uoId +
                 ", userId=" + userId +
                 ", orderDatetime=" + orderDatetime +
-                ", orderAddr='" + orderAddr + '\'' +
-                ", orderUsername='" + orderUsername + '\'' +
+                ", receiverAddr='" + receiverAddr + '\'' +
+                ", receiverName='" + receiverName + '\'' +
+                ", receiverTel='" + receiverTel + '\'' +
+                ", orderStatus='" + orderStatus + '\'' +
                 ", orderDataList=" + orderDataList +
-                ", oderStatus=" + oderStatus +
                 '}';
     }
 
@@ -70,43 +75,51 @@ public class UserOrder {
         this.userId = userId;
     }
 
-    public Date getOrderDatetime() {
+    public LocalDateTime getOrderDatetime() {
         return orderDatetime;
     }
 
-    public void setOrderDatetime(Date orderDatetime) {
+    public void setOrderDatetime(LocalDateTime orderDatetime) {
         this.orderDatetime = orderDatetime;
     }
 
-    public String getOrderAddr() {
-        return orderAddr;
+    public String getReceiverAddr() {
+        return receiverAddr;
     }
 
-    public void setOrderAddr(String orderAddr) {
-        this.orderAddr = orderAddr == null ? null : orderAddr.trim();
+    public void setReceiverAddr(String receiverAddr) {
+        this.receiverAddr = receiverAddr == null ? null : receiverAddr.trim();
     }
 
-    public String getOrderUsername() {
-        return orderUsername;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setOrderUsername(String orderUsername) {
-        this.orderUsername = orderUsername == null ? null : orderUsername.trim();
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName == null ? null : receiverName.trim();
+    }
+
+    public String getReceiverTel() {
+        return receiverTel;
+    }
+
+    public void setReceiverTel(String receiverTel) {
+        this.receiverTel = receiverTel == null ? null : receiverTel.trim();
+    }
+
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public List<OrderData> getOrderDataList() {
-        return orderDataList;
+        return this.orderDataList;
     }
 
     public void setOrderDataList(List<OrderData> orderDataList) {
         this.orderDataList = orderDataList;
-    }
-
-    public OrderStatusEnum getOderStatus() {
-        return oderStatus;
-    }
-
-    public void setOderStatus(OrderStatusEnum oderStatus) {
-        this.oderStatus = oderStatus;
     }
 }

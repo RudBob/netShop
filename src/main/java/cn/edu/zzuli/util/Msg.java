@@ -4,33 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Msg {
-    private int code=200;
+    private int code = 200;
     private String msg;
     private Map<String, Object> data;
+    public static final int SUCCESS = 100;
+    public static final int FAIL = 200;
+
     // 私有化构造器
-    private Msg(){
+    private Msg() {
     }
+
     // 提供两个工厂方法
     // 成功
-    public static Msg success(){
+    public static Msg success() {
         Msg msg = new Msg();
-        msg.code= 100;
+        msg.code = 100;
         msg.data = new HashMap<String, Object>();
         return msg;
     }
+
     // 失败
-    public static Msg fail(){
+    public static Msg fail() {
         Msg msg = new Msg();
-        msg.code= 200;
+        msg.code = 200;
         msg.data = new HashMap<String, Object>();
         return msg;
     }
-    public Msg setMsg(String msg){
+
+    public Msg setMsg(String msg) {
         this.msg = msg;
         return this;
     }
-    public Msg addResData(String resName, Object resData){
-        this.data.put(resName,resData);
+
+    public Msg addResData(String resName, Object resData) {
+        this.data.put(resName, resData);
         return this;
     }
 
@@ -61,5 +68,8 @@ public class Msg {
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
                 '}';
+    }
+    public boolean isSuccess(){
+        return this.getCode() == this.SUCCESS;
     }
 }

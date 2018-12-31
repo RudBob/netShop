@@ -199,4 +199,5 @@ public class Goods {
     public void setGoodsEnum(GoodsEnum goodsEnum) {
         this.goodsEnum = goodsEnum;
     }
+
 }

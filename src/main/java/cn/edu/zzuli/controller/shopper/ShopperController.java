@@ -2,6 +2,7 @@ package cn.edu.zzuli.controller.shopper;
 
 import cn.edu.zzuli.service.shopper.ShopperService;
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/12/24 18:14
  * @Version 1.0
  */
+@Api(description = "店家的一些操作")
 @RestController
-@RequestMapping(value = "shopper")
+@RequestMapping(value = "/shopper")
 public class ShopperController {
     @Autowired
     private ShopperService shopperService;
@@ -41,7 +43,7 @@ public class ShopperController {
      *
      * @return
      */
-    @RequestMapping(value = "becomeShopper", method = RequestMethod.GET)
+    @RequestMapping(value = "becomeShopper", method = RequestMethod.POST)
     public Msg becomeShopper(@RequestParam(value = "shopName") String shopName) {
         // 信息不完善的话返回false
         boolean res = shopperService.becomeShopper(shopName);

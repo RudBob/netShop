@@ -2,12 +2,14 @@ package cn.edu.zzuli.controller.user.userMoney;
 
 import cn.edu.zzuli.service.user.UserMoneyService;
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(description = "用户余额的一些简单操作")
 @RestController
 @RequestMapping(value = "/user/money")
 public class UserMoneyController {

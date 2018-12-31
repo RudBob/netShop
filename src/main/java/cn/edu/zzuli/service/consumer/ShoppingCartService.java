@@ -1,6 +1,6 @@
 package cn.edu.zzuli.service.consumer;
 
-import cn.edu.zzuli.bean.ShoppingCart;
+import cn.edu.zzuli.bean.CartDetail;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface ShoppingCartService {
      *
      * @return 用户购物车中的内容
      */
-    List<ShoppingCart> showCart();
+    List<CartDetail> showCart();
 
     /**
      * 更新购物车中某个商品的数量
@@ -31,7 +31,8 @@ public interface ShoppingCartService {
      * 新增某个商品进入购物车
      *
      * @param goodsId 待删除商品的id
+     * @param num
      * @return
      */
-    int addGoodsIntoCart(Integer goodsId);
+    int addGoodsIntoCart(Integer goodsId, Integer num);
 }

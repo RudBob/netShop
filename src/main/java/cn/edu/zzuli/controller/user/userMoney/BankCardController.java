@@ -1,10 +1,12 @@
 package cn.edu.zzuli.controller.user.userMoney;
 
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(description = "用户对自己的银行卡进行操作")
 @RestController
 @RequestMapping(value = "/user/bankCard")
 public class BankCardController {

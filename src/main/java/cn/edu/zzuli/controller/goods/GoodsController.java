@@ -3,10 +3,12 @@ package cn.edu.zzuli.controller.goods;
 import cn.edu.zzuli.bean.Goods;
 import cn.edu.zzuli.service.goods.GoodsService;
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ import java.util.List;
  * @Date 2018/12/25 8:54
  * @Version 1.0
  */
+@Api(description = "商品的一些操作")
+@RestController
+@RequestMapping(value = "/goods")
 public class GoodsController {
     @Autowired
     GoodsService goodsService;
@@ -36,16 +41,16 @@ public class GoodsController {
     /**
      * 用户条件查询商品,默认排序：综合排序
      */
-    @RequestMapping(value = "selectGoodsByInfo")
+    @RequestMapping(value = "selectGoodsByInfo", method = RequestMethod.GET)
     public Msg showGoodsByInfo(@RequestParam(value = "info") String info) {
         List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.NO_ORDER);
         return returnGoods(goodsList);
     }
 
-                                                                                                                                             /**
+    /**
      * 用户条件查询商品,默认排序：时间排序
      */
-    @RequestMapping(value = "showGoodsByInfoOrderByTime")
+    @RequestMapping(value = "showGoodsByInfoOrderByTime", method = RequestMethod.GET)
     public Msg showGoodsByInfoOrderByTime(@RequestParam(value = "info") String info) {
         List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_TIME);
         return returnGoods(goodsList);
@@ -55,7 +60,7 @@ public class GoodsController {
     /**
      * 用户条件查询商品,默认排序：销量排序
      */
-    @RequestMapping(value = "showGoodsByInfoOrderBySales")
+    @RequestMapping(value = "showGoodsByInfoOrderBySales", method = RequestMethod.GET)
     public Msg showGoodsByInfoOrderBySales(@RequestParam(value = "info") String info) {
         List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_SALES);
         return returnGoods(goodsList);
@@ -64,7 +69,7 @@ public class GoodsController {
     /**
      * 用户条件查询商品,默认排序：价格排序
      */
-    @RequestMapping(value = "showGoodsByInfoOrderBySales")
+    @RequestMapping(value = "showGoodsByInfoOrderByPrice", method = RequestMethod.GET)
     public Msg showGoodsByInfoOrderByPrice(@RequestParam(value = "info") String info) {
         List<Goods> goodsList = goodsService.showGoodsByInfo(info, GoodsService.ORDER_BY_PRICE);
         return returnGoods(goodsList);

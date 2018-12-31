@@ -36,6 +36,10 @@ public class User {
      * 用户角色
      */
     private UserRoleEnum role;
+    /**
+     * 默认的地址
+     */
+
 
     /**
      * 用户头像

@@ -32,7 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> showGoodsByInfo(String information, int orderBy) {
-        Map<String, Object> info = new HashMap<String, Object>();
+        Map<String, Object> info = new HashMap<>();
         info.put("information", information);
         if (GoodsService.ORDER_BY_TIME == orderBy) {
             info.put("orderByTime", new Object());

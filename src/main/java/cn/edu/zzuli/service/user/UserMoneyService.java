@@ -1,6 +1,9 @@
 package cn.edu.zzuli.service.user;
 
 
+import cn.edu.zzuli.bean.User;
+import cn.edu.zzuli.bean.UserMoney;
+
 public interface UserMoneyService {
     /**
      * 开通花钱宝
@@ -18,4 +21,10 @@ public interface UserMoneyService {
      * @return
      */
     int updatePayPwd(String oldPwd, String newPwd);
+
+    UserMoney getUserMoneyByUserId(Integer userId);
+
+    boolean checkPwd(Integer userId, String payPwd);
+
+    void transferMoney(User user, User shopper, double allPrice);
 }

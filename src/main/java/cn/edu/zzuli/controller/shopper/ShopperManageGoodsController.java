@@ -3,6 +3,7 @@ package cn.edu.zzuli.controller.shopper;
 import cn.edu.zzuli.bean.Goods;
 import cn.edu.zzuli.service.shopper.ShopperManageGoodsService;
 import cn.edu.zzuli.util.Msg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/12/25 8:58
  * @Version 1.0
  */
+@Api(description = "店家对自家商品的操作")
 @RestController
 @RequestMapping(value = "/shopperManageGoods")
 public class ShopperManageGoodsController {

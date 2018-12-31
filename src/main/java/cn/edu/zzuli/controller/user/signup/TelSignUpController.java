@@ -24,7 +24,7 @@ public class TelSignUpController {
     TelSignUpService signService;
 
     /**
-     * 手机号注册。
+     * 手机号注册。检验手机号是否已经注册
      *
      * @return Msg
      */

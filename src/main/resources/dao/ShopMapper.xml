@@ -28,20 +28,25 @@
         FROM shop
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        <include refid="Select_Base_Column_List_From_shop"/>
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shop
         WHERE sh_id = #{shId,jdbcType=INTEGER}
     </select>
-    <select id="selectShopByName" resultType="cn.edu.zzuli.bean.Shop">
-        <include refid="Select_Base_Column_List_From_shop"/>
-        WHERE sh_name =#{shopName}
+    <select id="selectShopByName" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shop WHERE sh_name =#{shopName}
     </select>
-    <select id="getShopByShopperId" resultType="cn.edu.zzuli.bean.Shop">
-        <include refid="Select_Base_Column_List_From_shop"/>
-        WHERE shopper_id =#{shopperId}
+    <select id="getShopByShopperId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shop WHERE shopper_id = #{shopperId}
     </select>
-    <select id="selectShopsByNameLike" resultType="cn.edu.zzuli.bean.Shop">
-        <include refid="Select_Base_Column_List_From_shop"/>
-        WHERE sh_name LIKE #{shopName}
+    <select id="selectShopsByNameLike" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shop WHERE sh_name LIKE #{shopName}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -52,7 +57,7 @@
         insert into shop (sh_id, sh_name, fans_num,
                           shopper_id)
         values (#{shId,jdbcType=INTEGER}, #{shName,jdbcType=VARCHAR}, #{fansNum,jdbcType=INTEGER},
-                #{shopper.userMoneyId,jdbcType=INTEGER})
+                #{shopper.userId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Shop">
         insert into shop
@@ -67,7 +72,7 @@
                 fans_num,
             </if>
             <if test="shopper != null">
-                <if test="shopper.userMoneyId != null">
+                <if test="shopper.userId != null">
                     shopper_id,
                 </if>
             </if>
@@ -83,8 +88,8 @@
                 #{fansNum,jdbcType=INTEGER},
             </if>
             <if test="shopper != null">
-                <if test="shopper.userMoneyId != null">
-                    #{shopper.userMoneyId,jdbcType=INTEGER},
+                <if test="shopper.userId != null">
+                    #{shopper.userId,jdbcType=INTEGER},
                 </if>
             </if>
         </trim>
@@ -99,8 +104,8 @@
                 fans_num = #{fansNum,jdbcType=INTEGER},
             </if>
             <if test="shopper != null">
-                <if test="shopper.userMoneyId != null">
-                    shopper_id = #{shopper.userMoneyId,jdbcType=INTEGER},
+                <if test="shopper.userId != null">
+                    shopper_id = #{shopper.userId,jdbcType=INTEGER},
                 </if>
             </if>
         </set>
@@ -110,7 +115,7 @@
         update shop
         set sh_name    = #{shName,jdbcType=VARCHAR},
             fans_num   = #{fansNum,jdbcType=INTEGER},
-            shopper_id = #{shopper.userMoneyId,jdbcType=INTEGER}
+            shopper_id = #{shopper.userId,jdbcType=INTEGER}
         where sh_id = #{shId,jdbcType=INTEGER}
     </update>
 </mapper>

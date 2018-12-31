@@ -1,9 +1,9 @@
 package cn.edu.zzuli.service.consumer.impl;
 
+import cn.edu.zzuli.bean.CartDetail;
 import cn.edu.zzuli.bean.Goods;
-import cn.edu.zzuli.bean.ShoppingCart;
 import cn.edu.zzuli.bean.User;
-import cn.edu.zzuli.mapper.ShoppingCartMapper;
+import cn.edu.zzuli.mapper.CartDetailMapper;
 import cn.edu.zzuli.service.consumer.ShoppingCartService;
 import cn.edu.zzuli.service.goods.GoodsService;
 import cn.edu.zzuli.util.SessionUtil;
@@ -20,7 +20,7 @@ import java.util.Map;
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
-    ShoppingCartMapper shoppingCartMapper;
+    CartDetailMapper cartDetailMapper;
 
     @Autowired
     GoodsService goodsService;
@@ -31,11 +31,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @return 用户和他的购物车的内容
      */
     @Override
-    public List<ShoppingCart> showCart() {
+    public List<CartDetail> showCart() {
         User user = SessionUtil.getUserFromSession();
         Map<String, Object> info = new HashMap<>();
         info.put("userId", user.getUserId());
-        List<ShoppingCart> shoppingCart = shoppingCartMapper.selectCartByInfoCascade(info);
+        List<CartDetail> shoppingCart = cartDetailMapper.selectCartByInfo(info);
         return shoppingCart;
     }
 
@@ -49,7 +49,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public int updateGoodsNum(Integer cartId, Integer goodsNum) {
         // 先判断这个数字是否合法，并且不能超过库存
-        ShoppingCart shoppingCart = shoppingCartMapper.selectByPrimaryKeyCascade(cartId);
+        CartDetail shoppingCart = cartDetailMapper.selectByPrimaryKey(cartId);
         // 没有查到任何结果
         if (shoppingCart == null) {
             return 0;
@@ -59,7 +59,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             return 0;
         }
         shoppingCart.setNum(goodsNum);
-        int res = shoppingCartMapper.updateByPrimaryKeySelective(shoppingCart);
+        int res = cartDetailMapper.updateByPrimaryKeySelective(shoppingCart);
         return res;
     }
 
@@ -74,9 +74,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         int deleteLineNum = 0;
         User user = SessionUtil.getUserFromSession();
         // 确定是不是本人的操作
-        ShoppingCart shoppingCart = shoppingCartMapper.selectByPrimaryKeyCascade(cartId);
+        CartDetail shoppingCart = cartDetailMapper.selectByPrimaryKey(cartId);
         if (user.getUserId().equals(shoppingCart.getUserId())) {
-            deleteLineNum = shoppingCartMapper.deleteByPrimaryKey(cartId);
+            deleteLineNum = cartDetailMapper.deleteByPrimaryKey(cartId);
         }
         return deleteLineNum;
     }
@@ -85,19 +85,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * 新增某个商品进入购物车
      *
      * @param goodsId 待新增商品的id
+     * @param num
      * @return
      */
     @Override
-    public int addGoodsIntoCart(Integer goodsId) {
+    public int addGoodsIntoCart(Integer goodsId, Integer num) {
         // 查询这个商品
         Goods goods = goodsService.selectGoodsById(goodsId);
         //TODO: 进行逻辑判断
 
         User user = SessionUtil.getUserFromSession();
         // 生成新的购物车记录
-        ShoppingCart shoppingCart = ShoppingCart.shoppingCartFactory(goods, user.getUserId());
+        CartDetail shoppingCart = CartDetail.shoppingCartFactory(user.getUserId(), goods, num);
         // 插入数据库
-        int resLineNum = shoppingCartMapper.insertSelective(shoppingCart);
+        int resLineNum = cartDetailMapper.insertSelective(shoppingCart);
         return resLineNum;
     }
 }

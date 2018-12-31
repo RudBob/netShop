@@ -24,7 +24,7 @@ public class EmailSignUpController {
     EmailSignUpService signService;
 
     /**
-     * 邮件注册
+     * 邮件注册,检验邮箱是否已经注册TODO
      *
      * @return
      */

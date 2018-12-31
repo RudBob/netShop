@@ -1,8 +1,10 @@
 package cn.edu.zzuli.mapper;
 
 import cn.edu.zzuli.bean.UserMoney;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserMoneyMapper {
     int deleteByPrimaryKey(Integer umId);
 
@@ -16,6 +18,6 @@ public interface UserMoneyMapper {
 
     int updateByPrimaryKey(UserMoney record);
 
-    UserMoney selectByUserId_Pwd(@Param(value = "userId") Integer userId, @Param(value = "payPwd") String payPwd);
+    UserMoney selectByUserId(@Param(value = "userId") Integer userId);
 
 }

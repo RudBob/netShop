@@ -1,7 +1,9 @@
 package cn.edu.zzuli.mapper;
 
 import cn.edu.zzuli.bean.UserOrder;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UserOrderMapper {
     int deleteByPrimaryKey(Integer uoId);
 

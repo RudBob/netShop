@@ -1,6 +1,6 @@
 package cn.edu.zzuli.controller.shopper;
 
-import cn.edu.zzuli.BlogApplication;
+import cn.edu.zzuli.NetShopApplication;
 import cn.edu.zzuli.controller.user.LoginController;
 import cn.edu.zzuli.util.Msg;
 import org.junit.Before;
@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -15,12 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
-@SpringBootTest(classes = BlogApplication.class)
+@SpringBootTest(classes = NetShopApplication.class)
 public class ShopperControllerTest {
     @Autowired
-    LoginController loginController;
+    MockHttpServletRequest request;
+
     @Autowired
-    HttpServletRequest request;
+    MockHttpSession session;
+
+    @Autowired
+    MockHttpServletResponse response;
+    @Autowired
+    LoginController loginController;
 
     @Autowired
     ShopperController shopperController;
@@ -30,8 +39,8 @@ public class ShopperControllerTest {
      */
     @Before
     public void login() {
-        loginController.login("001001", "123456");
-        System.out.println("登录成功");
+//        loginController.login("001001", "123456");
+        session.setAttribute("001001","123456");
     }
 
     @Test
