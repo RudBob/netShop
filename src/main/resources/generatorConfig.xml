@@ -63,7 +63,7 @@
         <!--<table tableName="user_money" domainObjectName="UserMoney" enableCountByExample="false"-->
         <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
         <!--selectByExampleQueryId="false"/>-->
-        <!--<table tableName="user_add" domainObjectName="UserAdd" enableCountByExample="false"-->
+        <!--<table tableName="user_add" domainObjectName="UserAddr" enableCountByExample="false"-->
                <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false"/>-->
     </context>

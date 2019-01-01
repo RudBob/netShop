@@ -1,6 +1,6 @@
 package cn.edu.zzuli.bean;
 
-public class UserAdd {
+public class UserAddr {
     private Integer addId;
 
     private String addName;

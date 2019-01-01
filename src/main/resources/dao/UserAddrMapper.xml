@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zzuli.mapper.UserAddrMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.UserAddr">
+        <id column="add_id" property="addId" jdbcType="INTEGER"/>
+        <result column="add_name" property="addName" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="add_name_detail" property="addNameDetail" jdbcType="VARCHAR"/>
+        <result column="receiver_tel" property="receiverTel" jdbcType="VARCHAR"/>
+        <result column="receiver_name" property="receiverName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        add_id,
+        add_name,
+        user_id,
+        add_name_detail,
+        receiver_tel,
+        receiver_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_addr
+        where add_id = #{addId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_addr
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <!-- 不允许任何代码直接调用删除代码，因为他将在许多地方被引用 -->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete-->
+    <!--from user_addr-->
+    <!--where add_id = #{addId,jdbcType=INTEGER}-->
+    <!--</delete>-->
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.UserAddr">
+        insert into user_addr (add_id, add_name, user_id,
+                               add_name_detail, receiver_tel, receiver_name)
+        values (#{addId,jdbcType=INTEGER}, #{addName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+                #{addNameDetail,jdbcType=VARCHAR}, #{receiverTel,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.UserAddr">
+        insert into user_addr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="addId != null">
+                add_id,
+            </if>
+            <if test="addName != null">
+                add_name,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="addNameDetail != null">
+                add_name_detail,
+            </if>
+            <if test="receiverTel != null">
+                receiver_tel,
+            </if>
+            <if test="receiverName != null">
+                receiver_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="addId != null">
+                #{addId,jdbcType=INTEGER},
+            </if>
+            <if test="addName != null">
+                #{addName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="addNameDetail != null">
+                #{addNameDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverTel != null">
+                #{receiverTel,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                #{receiverName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.UserAddr">
+        update user_addr
+        <set>
+            <if test="addName != null">
+                add_name = #{addName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="addNameDetail != null">
+                add_name_detail = #{addNameDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverTel != null">
+                receiver_tel = #{receiverTel,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                receiver_name = #{receiverName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where add_id = #{addId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.UserAddr">
+        update user_addr
+        set add_name        = #{addName,jdbcType=VARCHAR},
+            user_id         = #{userId,jdbcType=INTEGER},
+            add_name_detail = #{addNameDetail,jdbcType=VARCHAR},
+            receiver_tel    = #{receiverTel,jdbcType=VARCHAR},
+            receiver_name   = #{receiverName,jdbcType=VARCHAR}
+        where add_id = #{addId,jdbcType=INTEGER}
+    </update>
+    <update id="updateAddrToDelete">
+        update user_addr
+        set user_id = NULL
+        where add_id = #{addrId,jdbcType=INTEGER}
+    </update>
+</mapper>

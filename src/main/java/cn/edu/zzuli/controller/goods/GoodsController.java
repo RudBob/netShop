@@ -30,7 +30,6 @@ public class GoodsController {
      * 展示一个店的所有商品
      *
      * @param shopId 商店的id
-     * @return
      */
     @RequestMapping(value = "showGoods", method = RequestMethod.GET)
     public Msg showGoods(@RequestParam(value = "shopId") Integer shopId) {
@@ -79,7 +78,6 @@ public class GoodsController {
      * 返回值格式完全相同，所以进行了提取
      *
      * @param goodsList 商品列表
-     * @return
      */
     private Msg returnGoods(List<Goods> goodsList) {
         if (goodsList != null && goodsList.size() != 0) {

@@ -38,7 +38,7 @@ public class ConsumerGoodsServiceImpl implements ConsumerGoodsService {
         // 先得到用户
         User user = SessionUtil.getUserFromSession();
         //得到对应的收货地址对象
-        UserAdd userAddr = consumerAddrService.getAddrByAddrId(addrId);
+        UserAddr userAddr = consumerAddrService.getAddrByAddrId(addrId);
         UserOrder userOrder = UserOrder.userOrderFactory(user.getUserId(), userAddr);
         // 订单插入数据库
         userOrderService.insertRecord(userOrder);

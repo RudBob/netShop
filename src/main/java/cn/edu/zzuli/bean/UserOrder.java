@@ -33,7 +33,7 @@ public class UserOrder {
     public UserOrder() {
     }
 
-    public static UserOrder userOrderFactory(Integer userId, UserAdd userAddr) {
+    public static UserOrder userOrderFactory(Integer userId, UserAddr userAddr) {
         UserOrder userOrder = new UserOrder();
         userOrder.setOrderDatetime(LocalDateTime.now());
         userOrder.setOrderStatus(OrderStatusEnum.NOT_PAY);

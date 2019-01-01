@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(description = "顾客对商品的操作")
 @RestController
-@RequestMapping(value = "consumerGoods")
+@RequestMapping(value = "consumer/goods")
 public class ConsumerGoodsController {
     @Autowired
     ConsumerGoodsService consumerGoodsService;

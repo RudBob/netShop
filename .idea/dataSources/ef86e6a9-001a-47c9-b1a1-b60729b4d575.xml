@@ -1122,7 +1122,7 @@
       <Comment>网上商店</Comment>
     </table>
     <table id="284" parent="5" name="user"/>
-    <table id="285" parent="5" name="user_add">
+    <table id="285" parent="5" name="user_addr">
       <Comment>用户的收货地址</Comment>
     </table>
     <table id="286" parent="5" name="user_money"/>

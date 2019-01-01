@@ -65,6 +65,16 @@ public class SessionUtil {
     }
 
     /**
+     * 从session中获取到当前用户
+     *
+     * @return
+     */
+    public static Integer getUserIdFromSession() {
+        User user = (User) session.getAttribute(USER_NAME_IN_SESSION);
+        return user.getUserId();
+    }
+
+    /**
      * 更新Session中的user
      *
      * @return

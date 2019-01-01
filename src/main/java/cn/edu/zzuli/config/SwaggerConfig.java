@@ -1,6 +1,5 @@
 package cn.edu.zzuli.config;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,7 +35,7 @@ public class SwaggerConfig {
                 .title("Spring Boot使用 Swagger2 构建RestFul API") //创建人
                 .contact(new Contact("过道", "http://localhost:8764/swagger-ui.html", "1014698129@qq.com")) //版本号
                 .version("1.0") //描述
-                .description("跑圈模块接口文档").build();
+                .description("前台模块接口").build();
     }
 }
 
