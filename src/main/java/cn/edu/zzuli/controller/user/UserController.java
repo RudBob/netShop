@@ -2,6 +2,7 @@ package cn.edu.zzuli.controller.user;
 
 import cn.edu.zzuli.bean.User;
 import cn.edu.zzuli.service.user.UserService;
+import cn.edu.zzuli.util.BaseUtil;
 import cn.edu.zzuli.util.Msg;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,8 @@ public class UserController {
     public Msg updateUserTel(@RequestParam(value = "tel") String tel,
                              @RequestParam(value = "idCode") String idCode
     ) {
-        int res = userService.updateUserTel(tel, idCode);
-        if (res == 1) {
-            return Msg.success();
-        }
-        return Msg.fail();
+        int resLine = userService.updateUserTel(tel, idCode);
+        return BaseUtil.resLineToMsg(resLine);
     }
 
 }

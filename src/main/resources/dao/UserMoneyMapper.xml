@@ -19,7 +19,7 @@
         from user_money
         where um_id = #{umId,jdbcType=INTEGER}
     </select>
-    <select id="selectByUserId" resultType="cn.edu.zzuli.bean.UserMoney">
+    <select id="selectByUserId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user_money WHERE user_id =#{userId};
@@ -33,7 +33,7 @@
         insert into user_money (um_id, money, um_pwd,
                                 user_id)
         values (#{umId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{umPwd,jdbcType=VARCHAR},
-                #{userMoneyId,jdbcType=INTEGER})
+                #{userId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.UserMoney">
         insert into user_money
@@ -47,7 +47,7 @@
             <if test="umPwd != null">
                 um_pwd,
             </if>
-            <if test="userMoneyId != null">
+            <if test="userId != null">
                 user_id,
             </if>
         </trim>
@@ -61,8 +61,8 @@
             <if test="umPwd != null">
                 #{umPwd,jdbcType=VARCHAR},
             </if>
-            <if test="userMoneyId != null">
-                #{userMoneyId,jdbcType=INTEGER},
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -75,8 +75,8 @@
             <if test="umPwd != null">
                 um_pwd = #{umPwd,jdbcType=VARCHAR},
             </if>
-            <if test="userMoneyId != null">
-                user_id = #{userMoneyId,jdbcType=INTEGER},
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
             </if>
         </set>
         where um_id = #{umId,jdbcType=INTEGER}
@@ -85,7 +85,7 @@
         update user_money
         set money   = #{money,jdbcType=DOUBLE},
             um_pwd  = #{umPwd,jdbcType=VARCHAR},
-            user_id = #{userMoneyId,jdbcType=INTEGER}
+            user_id = #{userId,jdbcType=INTEGER}
         where um_id = #{umId,jdbcType=INTEGER}
     </update>
 </mapper>

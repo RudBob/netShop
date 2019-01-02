@@ -26,9 +26,14 @@ public class ShopController {
     @Autowired
     ShopService shopService;
 
-
+    /**
+     * 拆线呢商店名字是否可用
+     *
+     * @param shopName 店名
+     * @return 可用：success
+     */
     @RequestMapping(value = "queryShopName", method = RequestMethod.GET)
-    public Msg queryShopName(@RequestParam(value = "queryShopName") String shopName) {
+    public Msg queryShopNameWeatherCanUse(@RequestParam(value = "queryShopNameWeatherCanUse") String shopName) {
         boolean res = shopService.shopNameIsExist(shopName);
         if (res) {
             return Msg.fail();
@@ -37,6 +42,12 @@ public class ShopController {
         }
     }
 
+    /**
+     * 通过店名查询商店
+     *
+     * @param shopName 店名
+     * @return Msg
+     */
     @RequestMapping(value = "selectShopByName", method = RequestMethod.GET)
     public Msg selectShopByName(@RequestParam(value = "shopName") String shopName) {
         List<Shop> shops = shopService.selectShopByName(shopName);

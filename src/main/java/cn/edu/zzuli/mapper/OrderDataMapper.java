@@ -2,6 +2,9 @@ package cn.edu.zzuli.mapper;
 
 import cn.edu.zzuli.bean.OrderData;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface OrderDataMapper {
@@ -16,4 +19,6 @@ public interface OrderDataMapper {
     int updateByPrimaryKeySelective(OrderData record);
 
     int updateByPrimaryKey(OrderData record);
+
+    List<OrderData> selectByOrderId(@Param(value = "orderId") Integer orderId);
 }

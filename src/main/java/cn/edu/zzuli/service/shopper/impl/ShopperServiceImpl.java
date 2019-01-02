@@ -69,12 +69,15 @@ public class ShopperServiceImpl implements ShopperService {
      * 通过商店id得到店主的id，转账给店主
      *
      * @param shId
-     * @return  通过商店id得到店主
+     * @return 通过商店id得到店主
      */
     @Override
     public User getShopperByShopId(Integer shId) {
-
-        return null;
+        // 得到店主的userId
+        int shopperId = shopService.selectByPKey(shId);
+        // 查询User表
+        User user = userMapper.selectUserById(shopperId);
+        return user;
     }
 
 }

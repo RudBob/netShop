@@ -1,6 +1,7 @@
 package cn.edu.zzuli.controller.user.userMoney;
 
 import cn.edu.zzuli.service.user.UserMoneyService;
+import cn.edu.zzuli.util.BaseUtil;
 import cn.edu.zzuli.util.Msg;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +27,37 @@ public class UserMoneyController {
      */
     @RequestMapping(value = "addPay", method = RequestMethod.POST)
     public Msg addPay(@RequestParam(value = "payPwd") String payPwd) {
-        int lineNumRes = userMoneyService.addPay(payPwd);
-        if (lineNumRes == 1) {
-            return Msg.success();
-        } else {
-            return Msg.fail();
-        }
+        int resLine = userMoneyService.addPay(payPwd);
+        return BaseUtil.resLineToMsg(resLine);
     }
 
     /**
      * 更新支付密码
      *
-     * @return
+     * @return Msg
      */
     @RequestMapping(value = "updateMoneyPwd", method = RequestMethod.POST)
     public Msg updateMoneyPwd(@RequestParam(value = "newPwd") String newPwd,
                               @RequestParam(value = "oldPwd") String oldPwd) {
-        int lineNumRes = userMoneyService.updatePayPwd(oldPwd, newPwd);
-        if (lineNumRes == 1) {
-            return Msg.success();
-        } else {
-            return Msg.fail();
-        }
+        int resLine = userMoneyService.updatePayPwd(oldPwd, newPwd);
+        return BaseUtil.resLineToMsg(resLine);
+    }
+
+    /**
+     * 充值金额,
+     */
+    @RequestMapping(value = "recharge", method = RequestMethod.POST)
+    public Msg addMoney(@RequestParam(value = "moneyNum") Double moneyNum) {
+        boolean res = userMoneyService.recharge(moneyNum);
+        return BaseUtil.resLineToMsg(res);
+    }
+
+    /**
+     * 提现金额,
+     */
+    @RequestMapping(value = "withdrawCash", method = RequestMethod.POST)
+    public Msg withdrawCash(@RequestParam(value = "moneyNum") Double moneyNum) {
+        boolean res = userMoneyService.withdrawCash(moneyNum);
+        return BaseUtil.resLineToMsg(res);
     }
 }

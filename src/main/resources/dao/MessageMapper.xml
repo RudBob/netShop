@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zzuli.mapper.MessageMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.zzuli.bean.Message">
+        <id column="chat_detail_id" property="chatDetailId" jdbcType="INTEGER"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="chat_datetime" property="chatDatetime" jdbcType="TIMESTAMP"/>
+        <result column="from_user_id" property="fromUserId" jdbcType="INTEGER"/>
+        <result column="to_user_id" property="toUserId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        chat_detail_id,
+        content,
+        chat_datetime,
+        from_user_id,
+        to_user_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where chat_detail_id = #{chatDetailId,jdbcType=INTEGER}
+    </select>
+    <select id="selectMsgByTwoUserId" resultType="cn.edu.zzuli.bean.Message">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where (to_user_id = #{toUserId} AND fromUserId = #{fromUserId})
+        OR (fromUserId = #{toUserId} AND to_user_id = #{fromUserId})
+        ORDER BY chat_datetime DESC
+    </select>
+    <select id="selectMsgByTwoUserIdLastMsg" resultType="cn.edu.zzuli.bean.Message">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where (to_user_id = #{toUserId} AND fromUserId = #{fromUserId})
+        OR (fromUserId = #{toUserId} AND to_user_id = #{fromUserId})
+        ORDER BY chat_datetime DESC limit 1;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from message
+        where chat_detail_id = #{chatDetailId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.edu.zzuli.bean.Message">
+        insert into message (chat_detail_id, content, chat_datetime,
+                             from_user_id, to_user_id)
+        values (#{chatDetailId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{chatDatetime,jdbcType=TIMESTAMP},
+                #{fromUserId,jdbcType=INTEGER}, #{toUserId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.edu.zzuli.bean.Message">
+        insert into message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatDetailId != null">
+                chat_detail_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="chatDatetime != null">
+                chat_datetime,
+            </if>
+            <if test="fromUserId != null">
+                from_user_id,
+            </if>
+            <if test="toUserId != null">
+                to_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chatDetailId != null">
+                #{chatDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="chatDatetime != null">
+                #{chatDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fromUserId != null">
+                #{fromUserId,jdbcType=INTEGER},
+            </if>
+            <if test="toUserId != null">
+                #{toUserId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzuli.bean.Message">
+        update message
+        <set>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="chatDatetime != null">
+                chat_datetime = #{chatDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fromUserId != null">
+                from_user_id = #{fromUserId,jdbcType=INTEGER},
+            </if>
+            <if test="toUserId != null">
+                to_user_id = #{toUserId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where chat_detail_id = #{chatDetailId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.zzuli.bean.Message">
+        update message
+        set content       = #{content,jdbcType=VARCHAR},
+            chat_datetime = #{chatDatetime,jdbcType=TIMESTAMP},
+            from_user_id  = #{fromUserId,jdbcType=INTEGER},
+            to_user_id    = #{toUserId,jdbcType=INTEGER}
+        where chat_detail_id = #{chatDetailId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -29,7 +29,6 @@ public class UserOrder {
     private List<OrderData> orderDataList;
 
 
-
     public UserOrder() {
     }
 
@@ -38,7 +37,7 @@ public class UserOrder {
         userOrder.setOrderDatetime(LocalDateTime.now());
         userOrder.setOrderStatus(OrderStatusEnum.NOT_PAY);
         userOrder.setUserId(userId);
-        userOrder.setReceiverAddr(userAddr.getAddName());
+        userOrder.setReceiverAddr(userAddr.getAddName() + "," + userAddr.getAddNameDetail());
         userOrder.setReceiverName(userAddr.getReceiverName());
         userOrder.setReceiverTel(userAddr.getReceiverTel());
 

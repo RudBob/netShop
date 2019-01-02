@@ -2,6 +2,7 @@ package cn.edu.zzuli.controller.consumer;
 
 import cn.edu.zzuli.bean.CartDetail;
 import cn.edu.zzuli.service.consumer.ShoppingCartService;
+import cn.edu.zzuli.util.BaseUtil;
 import cn.edu.zzuli.util.Msg;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,8 @@ public class ShoppingCartController {
     @RequestMapping(value = "updateGoodsNum", method = RequestMethod.GET)
     public Msg updateGoodsNum(@RequestParam(value = "cartId") Integer cartId,
                               @RequestParam(value = "goodsNum") Integer goodsNum) {
-        int updateLineNum = shoppingCartService.updateGoodsNum(cartId, goodsNum);
-        if (updateLineNum == 0) {
-            return Msg.fail();
-        }
-        return Msg.success();
+        int resLine = shoppingCartService.updateGoodsNum(cartId, goodsNum);
+        return BaseUtil.resLineToMsg(resLine);
     }
 
     /**
@@ -59,12 +57,8 @@ public class ShoppingCartController {
      */
     @RequestMapping(value = "deleteGoodsInCart", method = RequestMethod.GET)
     public Msg deleteGoodsInCart(@RequestParam(value = "cartId") Integer cartId) {
-        int deleteLineNum = shoppingCartService.deleteGoodsInCart(cartId);
-        if (deleteLineNum == 0) {
-            return Msg.fail();
-        } else {
-            return Msg.success();
-        }
+        int resLine = shoppingCartService.deleteGoodsInCart(cartId);
+        return BaseUtil.resLineToMsg(resLine);
     }
 
     /**
@@ -75,13 +69,9 @@ public class ShoppingCartController {
      */
     @RequestMapping(value = "addGoodsIntoCart", method = RequestMethod.GET)
     public Msg addGoodsIntoCart(@RequestParam(value = "goodsId") Integer goodsId,
-                                @RequestParam(value = "num",defaultValue = "1")Integer num) {
-        int addLineNum = shoppingCartService.addGoodsIntoCart(goodsId,num);
-        if (addLineNum == 0) {
-            return Msg.fail();
-        } else {
-            return Msg.success();
-        }
+                                @RequestParam(value = "num", defaultValue = "1") Integer num) {
+        int resLine = shoppingCartService.addGoodsIntoCart(goodsId, num);
+        return BaseUtil.resLineToMsg(resLine);
     }
 
 }

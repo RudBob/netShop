@@ -70,7 +70,12 @@ public class SessionUtil {
      * @return
      */
     public static Integer getUserIdFromSession() {
-        User user = (User) session.getAttribute(USER_NAME_IN_SESSION);
+        User user = null;
+        try {
+            user = (User) session.getAttribute(USER_NAME_IN_SESSION);
+        } catch (IllegalStateException e) {
+            session = getSession();
+        }
         return user.getUserId();
     }
 
@@ -81,7 +86,12 @@ public class SessionUtil {
      */
     public static User updateUserInSession(User user) {
         // 直接放入user，顶替掉原来session中的user
-        return putUserIntoSession(user);
+        try {
+            user = putUserIntoSession(user);
+        } catch (IllegalStateException e) {
+            session = getSession();
+        }
+        return user;
     }
 
     /**
@@ -91,7 +101,11 @@ public class SessionUtil {
      * @return
      */
     public static User putUserIntoSession(User user) {
-        session.setAttribute(USER_NAME_IN_SESSION, user);
+        try {
+            session.setAttribute(USER_NAME_IN_SESSION, user);
+        } catch (IllegalStateException e) {
+            session = getSession();
+        }
         return getUserFromSession();
     }
 

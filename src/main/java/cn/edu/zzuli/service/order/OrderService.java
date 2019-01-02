@@ -7,4 +7,7 @@ public interface OrderService {
 
     void insertRecord(UserOrder userOrder);
 
+    int getLastOrderId(Integer userId);
+
+    void payOrderSuccess(UserOrder userOrder);
 }

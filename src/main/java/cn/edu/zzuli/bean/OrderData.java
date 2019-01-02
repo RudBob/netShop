@@ -19,6 +19,12 @@ public class OrderData {
     public OrderData() {
     }
 
+    public OrderData(int goodsId, int goodsNum) {
+        goods = new Goods();
+        goods.setGoodsId(goodsId);
+        num = goodsNum;
+    }
+
     @Override
     public String toString() {
         return "OrderData{" +
@@ -69,4 +75,5 @@ public class OrderData {
     public void setUoId(Integer uoId) {
         this.uoId = uoId;
     }
+
 }

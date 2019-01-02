@@ -49,4 +49,6 @@ public interface ShopService {
      * @return
      */
     int updateShopByShopId(Shop shop);
+
+    int selectByPKey(Integer shId);
 }

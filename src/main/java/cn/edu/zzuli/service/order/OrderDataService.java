@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface OrderDataService {
     List<OrderData> getOrderDataByOrderId(Integer orderId);
+
+    void insertRecords(OrderData[] orderDatas,int userOrderId);
+
 }

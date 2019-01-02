@@ -55,8 +55,8 @@ public class ShopServiceImpl implements ShopService {
     /**
      * 通过店主的userId查询商店
      *
-     * @param userId    用户id
-     * @return  Shop
+     * @param userId 用户id
+     * @return Shop
      */
     @Override
     public Shop getShopByShopperId(Integer userId) {
@@ -66,6 +66,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public int updateShopByShopId(Shop shop) {
         return shopMapper.updateByPrimaryKey(shop);
+    }
+
+    @Override
+    public int selectByPKey(Integer shId) {
+        return shopMapper.selectByPrimaryKey(shId).getShopper().getUserId();
     }
 
 }

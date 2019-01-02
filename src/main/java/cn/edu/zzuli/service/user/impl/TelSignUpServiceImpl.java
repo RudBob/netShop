@@ -30,4 +30,9 @@ public class TelSignUpServiceImpl implements TelSignUpService {
 
         return false;
     }
+
+    @Override
+    public void confirmTel(String tel) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package cn.edu.zzuli.service.consumer.impl;
 
 import cn.edu.zzuli.bean.*;
+import cn.edu.zzuli.mapper.UserOrderMapper;
 import cn.edu.zzuli.service.consumer.ConsumerAddrService;
 import cn.edu.zzuli.service.order.OrderDataService;
 import cn.edu.zzuli.service.order.OrderService;
@@ -10,7 +11,10 @@ import cn.edu.zzuli.service.user.UserMoneyService;
 import cn.edu.zzuli.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,15 +37,21 @@ public class ConsumerGoodsServiceImpl implements ConsumerGoodsService {
      * @return 返回一个用户订单
      */
     @Override
+    @Transactional
     public UserOrder createOrder(OrderData[] orderDatas, Integer addrId) {
         // 生成一张新订单
         // 先得到用户
-        User user = SessionUtil.getUserFromSession();
+        int userId = SessionUtil.getUserIdFromSession();
         //得到对应的收货地址对象
         UserAddr userAddr = consumerAddrService.getAddrByAddrId(addrId);
-        UserOrder userOrder = UserOrder.userOrderFactory(user.getUserId(), userAddr);
+        UserOrder userOrder = UserOrder.userOrderFactory(userId, userAddr);
         // 订单插入数据库
         userOrderService.insertRecord(userOrder);
+        int userOrderId = userOrderService.getLastOrderId(userId);
+        userOrder.setUoId(userOrderId);
+        // 将订单详情插入数据库
+        orderDataService.insertRecords(orderDatas, userOrderId);
+        userOrder.setOrderDataList(Arrays.asList(orderDatas));
         // 返回订单
         return userOrder;
     }
@@ -70,6 +80,7 @@ public class ConsumerGoodsServiceImpl implements ConsumerGoodsService {
         }
         // 支付金额 使用：先付账，后发货的形式
         payMoneyToShopper(user, userOrder);
+        userOrderService.payOrderSuccess(userOrder);
         return userOrder;
     }
 
@@ -77,8 +88,8 @@ public class ConsumerGoodsServiceImpl implements ConsumerGoodsService {
      * 得到订单的总金额
      * 爱你
      *
-     * @param userOrder
-     * @return
+     * @param userOrder 得到一条订单的总价格
+     * @return 返回总价格
      */
     private double getAllPrice(UserOrder userOrder) {
         // 得到订单的详情
@@ -104,6 +115,9 @@ public class ConsumerGoodsServiceImpl implements ConsumerGoodsService {
     private UserOrder selectUserOrderCascade(Integer orderId) {
         UserOrder userOrder = userOrderService.getUserOrderById(orderId);
         List<OrderData> orderDataList = orderDataService.getOrderDataByOrderId(orderId);
+        if (orderDataList == null) {
+            return null;
+        }
         userOrder.setOrderDataList(orderDataList);
         return userOrder;
     }

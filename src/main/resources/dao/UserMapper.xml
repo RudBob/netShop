@@ -85,4 +85,9 @@
         <include refid="noPwdParam"/>
         from user where email =#{email}
     </select>
+    <select id="selectUserById" resultMap="simpleMap">
+        select
+        <include refid="noPwdParam"/>
+        from user where user_id = #{userId}
+    </select>
 </mapper>

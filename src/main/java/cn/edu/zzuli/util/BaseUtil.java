@@ -29,4 +29,31 @@ public class BaseUtil {
         }
     }
 
+    /**
+     * int 返回Msg
+     *
+     * @param resLine 受影响的行数
+     * @return Msg，一个前后交互的封装类
+     */
+    public static Msg resLineToMsg(int resLine) {
+        if (resLine != 0) {
+            return Msg.success();
+        } else {
+            return Msg.fail();
+        }
+    }
+
+    /**
+     * boolean 返回Msg
+     *
+     * @param res 结果
+     * @return Msg，一个前后交互的封装类
+     */
+    public static Msg resLineToMsg(boolean res) {
+        if (res) {
+            return Msg.success();
+        } else {
+            return Msg.fail();
+        }
+    }
 }

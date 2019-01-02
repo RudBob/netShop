@@ -27,4 +27,8 @@ public interface UserMoneyService {
     boolean checkPwd(Integer userId, String payPwd);
 
     void transferMoney(User user, User shopper, double allPrice);
+
+    boolean recharge(Double moneyNum);
+
+    boolean withdrawCash(Double moneyNum);
 }

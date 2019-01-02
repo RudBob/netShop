@@ -20,13 +20,14 @@ public class ConsumerGoodsController {
 
     /**
      * 生成一个订单
-     *
      * @param orderDatas 待生成的订单详情
-     * @return
+     * @param addrId 地址编号
      */
+
     @RequestMapping(value = "createOrder", method = RequestMethod.POST)
-    public Msg createOrder(@RequestBody OrderData[] orderDatas,
+    public Msg createOrder(@RequestBody  OrderData[] orderDatas,
                            @RequestParam(value = "addrId") Integer addrId) {
+        // 生成一张订单
         UserOrder order = consumerGoodsService.createOrder(orderDatas, addrId);
         return returnOrder(order);
     }
@@ -35,7 +36,6 @@ public class ConsumerGoodsController {
      * 支付某个订单
      *
      * @param orderId 订单id
-     * @return
      */
     @RequestMapping(value = "payOrder", method = RequestMethod.POST)
     public Msg payOrder(@RequestParam(value = "orderId") Integer orderId,
@@ -50,7 +50,7 @@ public class ConsumerGoodsController {
      * @param order 一个订单
      * @return 封装至Msg
      */
-    private Msg returnOrder(@RequestBody UserOrder order) {
+    private Msg returnOrder(UserOrder order) {
         if (order != null && order.getOrderDataList() != null && order.getOrderDataList().size() != 0) {
             return Msg.success().addResData("order", order);
         }
@@ -61,7 +61,6 @@ public class ConsumerGoodsController {
      * 收藏商品
      *
      * @param goodsId 商品id
-     * @return
      */
     @RequestMapping(value = "collectGoods", method = RequestMethod.POST)
     public Msg collectGoods(@RequestParam(value = "goodsId") Integer goodsId) {
@@ -71,4 +70,5 @@ public class ConsumerGoodsController {
         }
         return Msg.fail();
     }
+
 }
