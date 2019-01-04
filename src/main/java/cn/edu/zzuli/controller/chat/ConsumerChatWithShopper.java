@@ -33,6 +33,7 @@ public class ConsumerChatWithShopper {
                               @RequestParam(value = "toUserId") Integer toUserId) {
         Message message = chatService.sendMsgToOther(content, toUserId);
         messagingTemplate.convertAndSendToUser(Integer.toString(toUserId), "/queue/chat", message);
+
         return Msg.success().addResData("message", message);
     }
 
@@ -48,5 +49,4 @@ public class ConsumerChatWithShopper {
             return Msg.success().addResData("messageList", messageList);
         }
     }
-
 }

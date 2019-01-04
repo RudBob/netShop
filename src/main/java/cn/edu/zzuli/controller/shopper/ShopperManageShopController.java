@@ -32,6 +32,10 @@ public class ShopperManageShopController {
         return Msg.fail();
     }
     /**
+     * 定义自家的优惠卷
+     */
+
+    /**
      * 后续添加：查看商店的数据.
      */
 }

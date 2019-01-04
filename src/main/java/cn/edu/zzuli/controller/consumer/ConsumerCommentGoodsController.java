@@ -12,6 +12,12 @@ public class ConsumerCommentGoodsController {
     @Autowired
     GoodsCommentService goodsCommentService;
     /**
-     *
+     *  评论商品
      */
+
+    /**
+     * 得到他人的评论(条件)
+     */
+
+
 }
